@@ -1,0 +1,9 @@
+/* make slide content a bit smaller */
+.reveal section {
+  font-size: 0.8em;
+}
+
+/*
+.reveal h1, .reveal h2, .reveal h3 {
+  font-size: 90%;
+}*/
