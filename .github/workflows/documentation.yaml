@@ -51,14 +51,13 @@ jobs:
             out="_build/html/slides/$(basename "${f%.md}").html"
             docker run --rm -v "$PWD":/data pandoc/core:3.1 \
               --standalone \
-              --section-divs \
-              --variable theme="simple" \
               --from=markdown \
-              --variable transition="linear" \
-              --variable revealjs-url=https://unpkg.com/reveal.js@4.3.1/ \
-              --variable keyboard="{37:'prev',38:'prev',39:'next',40:'next'}" \
               --to=revealjs \
               --slide-level=2 \
+              -V theme="simple" \
+              -V transition="linear" \
+              -V revealjs-url=https://unpkg.com/reveal.js@4/ \
+              -V keyboard="{37:'prev',38:'prev',39:'next',40:'next'}" \
               --output="$out" \
               "$f"
           done
