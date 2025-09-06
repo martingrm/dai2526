@@ -43,8 +43,7 @@
 - Se puede discutir con los compañeros diferentes soluciones o estrategias
 - No se puede copiar código
 - El plagio suele ser fácil de detectar. El esfuerzo para engañar a los sistemas antiplagio puede ser mayor que el de hacer la práctica
-- El Reglamento para la Evaluación de los aprendizajes de la UA y la normativa de la EPS definen los procedimientos y sanciones en caso de fraude académico.
-- La Ley de Convivencia Universitaria de 2022 es una norma de rango superior en este contexto.
+- La Ley de Convivencia Universitaria de 2022, el Reglamento para la Evaluación de los aprendizajes de la UA y la normativa de la EPS definen los procedimientos y sanciones en caso de fraude académico.
 
 ## Asistentes basados en IA
 
