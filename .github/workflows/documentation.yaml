@@ -49,7 +49,7 @@ jobs:
           shopt -s nullglob
           for f in docs/slides/*.md; do
             out="_build/html/slides/$(basename "${f%.md}").html"
-            docker run --rm -v "$PWD":/data pandoc/core:2.9 \
+            docker run --rm -v "$PWD":/data pandoc/core:3.1 \
               --standalone \
               --section-divs \
               --variable theme="simple" \
@@ -58,6 +58,7 @@ jobs:
               --variable revealjs-url=https://unpkg.com/reveal.js@3.9.2/ \
               --variable keyboard="{37:'prev',38:'prev',39:'next',40:'next'}" \
               --to=revealjs \
+              --slide-level=2 \
               --output="$out" \
               "$f"
           done
