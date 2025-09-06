@@ -35,7 +35,7 @@ Novedades
 
     * - 03 sep
       - Ya está publicado el enunciado de la primera práctica. De hecho, están publicados los enunciados de todas las prácticas. Las clases de teoría comienzan el día 9 de septiembre.
-    * - 03 sep
+    * - 06 sep
       - Debido a las obras que se están realizando en la EPS IV, no habrá clase de prácticas como tal hasta que el laboratorio de ordenadores que tenemos asignado esté disponible. Al final de las clases de teoría se darán indicaciones o recomendaciones y se programarán tutorías colectivas para resolver las dudas que vayan surgiendo (además de las tutorías tanto escritas como online o presenciales que podéis solicitar).
 
 ..     * - 03 dic
