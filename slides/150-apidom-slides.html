@@ -8,28 +8,29 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/reset.css">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/theme/simple.css" id="theme">
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? 'https://unpkg.com/reveal.js@3.9.2//css/print/pdf.css' : 'https://unpkg.com/reveal.js@3.9.2//css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-  <!--[if lt IE 9]>
-  <script src="https://unpkg.com/reveal.js@3.9.2//lib/js/html5shiv.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/theme/simple.css" id="theme">
 </head>
 <body>
   <div class="reveal">
@@ -40,19 +41,25 @@
   <p class="author">Desarrollo de Aplicaciones en Internet</p>
 </section>
 
-<section id="la-api-para-javascript-del-navegador-web-api" class="slide level2">
+<section id="la-api-para-javascript-del-navegador-web-api"
+class="slide level2">
 <h2>La API para JavaScript del navegador (Web API)</h2>
 <p>Desarrollo de Aplicaciones en Internet</p>
-<p>Fuente: <a href="https://www.kirupa.com/html5/learn_javascript.htm">JavaScript</a></p>
-<p>Fuente: <a href="https://developer.mozilla.org/es/docs/Web/API">Web API reference</a></p>
+<p>Fuente: <a
+href="https://www.kirupa.com/html5/learn_javascript.htm">JavaScript</a></p>
+<p>Fuente: <a href="https://developer.mozilla.org/es/docs/Web/API">Web
+API reference</a></p>
 </section>
 <section id="qué-hacer-con-las-apis-web" class="slide level2">
 <h2>Qué hacer con las <em>APIs web</em></h2>
 <ul>
-<li><em>Escuchar</em> eventos (por ejemplo, un clic del ratón o el borrado de un elemento del DOM) y ejecutar código en respuesta a ellos.</li>
+<li><em>Escuchar</em> eventos (por ejemplo, un clic del ratón o el
+borrado de un elemento del DOM) y ejecutar código en respuesta a
+ellos.</li>
 <li>Modificar <em>en vivo</em> el HTML y el CSS de un documento.</li>
 <li>Intercambiar datos con un servidor (lo veremos en otro tema).</li>
-<li>Retardar la ejecución de un código hasta dentro de un tiempo (<em>setTimeout</em>).</li>
+<li>Retardar la ejecución de un código hasta dentro de un tiempo
+(<em>setTimeout</em>).</li>
 <li>Almacenar información en una base de datos del navegador.</li>
 </ul>
 </section>
@@ -60,7 +67,8 @@
 <h2>Qué hacer con las <em>APIs web</em></h2>
 <ul>
 <li>Interactuar con webcams, geolocalización, micrófono, etc.</li>
-<li>Realizar animaciones (por ejemplo, mediante <em>canvas</em> o <em>SVG</em>).</li>
+<li>Realizar animaciones (por ejemplo, mediante <em>canvas</em> o
+<em>SVG</em>).</li>
 <li>Ejecutar algoritmos.</li>
 <li>…</li>
 </ul>
@@ -68,23 +76,34 @@
 <section id="el-árbol-dom" class="slide level2">
 <h2>El árbol DOM</h2>
 <ul>
-<li>Como ya vimos, los nodos representan elementos, contenido textual, comentarios, etc.</li>
-<li>Jerarquía de tipos para los elementos: <em>Node</em> &lt;- <em>Element</em> &lt;- {<em>HTMLElement</em>, <em>SVGElement</em>}</li>
+<li>Como ya vimos, los nodos representan elementos, contenido textual,
+comentarios, etc.</li>
+<li>Jerarquía de tipos para los elementos: <em>Node</em> &lt;-
+<em>Element</em> &lt;- {<em>HTMLElement</em>, <em>SVGElement</em>}</li>
 </ul>
 </section>
 <section id="objetos-window-y-document" class="slide level2">
 <h2>Objetos window y document</h2>
 <ul>
-<li>El objeto global <em>window</em> (tipo <em>Window</em>) representa la ventana que contiene un documento DOM; podemos acceder a numerosas propiedades como <em>window.innerWidth</em>.</li>
-<li>El objeto global <em>document</em> (tipo <em>Document</em>) es la puerta de entrada al árbol DOM; es el objeto que vamos a usar más a menudo, por ejemplo, a través de funciones como <em>querySelector</em>.</li>
-<li>El objeto <em>document.body</em> permite acceder al cuerpo del documento.</li>
+<li>El objeto global <em>window</em> (tipo <em>Window</em>) representa
+la ventana que contiene un documento DOM; podemos acceder a numerosas
+propiedades como <em>window.innerWidth</em>.</li>
+<li>El objeto global <em>document</em> (tipo <em>Document</em>) es la
+puerta de entrada al árbol DOM; es el objeto que vamos a usar más a
+menudo, por ejemplo, a través de funciones como
+<em>querySelector</em>.</li>
+<li>El objeto <em>document.body</em> permite acceder al cuerpo del
+documento.</li>
 </ul>
 </section>
 <section id="acceso-con-selectores-css" class="slide level2">
 <h2>Acceso con selectores CSS</h2>
 <ul>
-<li><em>querySelector</em> devuelve un elemento (tipo <em>Element</em>); se devuelve el primero si más de uno satisface el criterio del selector</li>
-<li><em>querySelectorAll</em> devuelve una lista <em>no viva</em> (es decir, la lista no se actualiza dinámicamente) de elementos</li>
+<li><em>querySelector</em> devuelve un elemento (tipo <em>Element</em>);
+se devuelve el primero si más de uno satisface el criterio del
+selector</li>
+<li><em>querySelectorAll</em> devuelve una lista <em>no viva</em> (es
+decir, la lista no se actualiza dinámicamente) de elementos</li>
 </ul>
 <pre><code>var el = document.querySelector(&quot;.miClase&quot;);</code></pre>
 <pre><code>var images = document.querySelectorAll(&quot;img.pictures, img.charts&quot;);
@@ -96,7 +115,8 @@ for (var i = 0; i &lt; images.length; i++) {
 <section id="antes-de-queryselector" class="slide level2">
 <h2>Antes de <em>querySelector</em></h2>
 <ul>
-<li>Estos dos fragmentos de código son equivalentes, pero la primera forma (estandarizada más recientemente) es mucho más compacta:</li>
+<li>Estos dos fragmentos de código son equivalentes, pero la primera
+forma (estandarizada más recientemente) es mucho más compacta:</li>
 </ul>
 <pre><code>document.querySelector(&quot;#settingsForm &gt; table &gt; tbody &gt; tr:nth-child(2) &gt; td:first-child&quot;)
         .innerHTML+= &quot;&lt;p&gt;Tim Berners-Lee&lt;/p&gt;&quot;;</code></pre>
@@ -123,7 +143,8 @@ title.className = &quot;bar foo&quot;;  // el id y la clase se exponen como atri
 <section id="consulta-y-modificación-de-clases" class="slide level2">
 <h2>Consulta y modificación de clases</h2>
 <ul>
-<li>Una manera mejor que <em>className</em> de gestionar las clases de un elemento.</li>
+<li>Una manera mejor que <em>className</em> de gestionar las clases de
+un elemento.</li>
 </ul>
 <pre><code>var divElement = document.querySelector(&quot;#myDiv&quot;);
 divElement.classList.add(&quot;bar&quot;);
@@ -160,8 +181,12 @@ divElement.className = &quot;&quot;;  // borra todas las clases</code></pre>
 <section id="consulta-y-modificación-de-estilos" class="slide level2">
 <h2>Consulta y modificación de estilos</h2>
 <ul>
-<li><em>style</em> solo devuelve propiedades asignadas en línea al elemento (con el atributo <em>style</em>) o mediante <em>element.style.propiedad</em>.</li>
-<li>Para modificar los estilos de múltiples elementos, se puede inyectar desde JavaScript elementos de tipo <em>style</em> o añadir reglas a una hoja existente.</li>
+<li><em>style</em> solo devuelve propiedades asignadas en línea al
+elemento (con el atributo <em>style</em>) o mediante
+<em>element.style.propiedad</em>.</li>
+<li>Para modificar los estilos de múltiples elementos, se puede inyectar
+desde JavaScript elementos de tipo <em>style</em> o añadir reglas a una
+hoja existente.</li>
 </ul>
 <pre><code>var e = document.createElement(&quot;style&quot;);
 e.innerHTML= &quot;p {color: red;}&quot;
@@ -172,7 +197,8 @@ e.sheet.insertRule(&quot;p { background-color: blue}&quot;);  // otra manera</co
 <section id="forma-recomendada-de-cambiar-estilos" class="slide level2">
 <h2>Forma recomendada de cambiar estilos</h2>
 <ul>
-<li>Salvo causa muy justificada, usar siempre que sea posible el atributo <em>class</em> para afectar a los estilos de un elemento.</li>
+<li>Salvo causa muy justificada, usar siempre que sea posible el
+atributo <em>class</em> para afectar a los estilos de un elemento.</li>
 </ul>
 </section>
 <section id="recorrer-el-dom" class="slide level2">
@@ -202,7 +228,8 @@ for (var i = 0; i &lt; bodyElement.children.length; i++) {
 <section id="mejor-que-usar-innerhtml" class="slide level2">
 <h2>Mejor que usar innerHTML</h2>
 <ol type="1">
-<li>Crear el elemento con <em>document.createElement</em>; esta función solo está definida para <em>document</em>.</li>
+<li>Crear el elemento con <em>document.createElement</em>; esta función
+solo está definida para <em>document</em>.</li>
 <li>Obtener una referencia al nodo que hará de padre.</li>
 <li>Insertar el nuevo nodo con <em>appendChild</em>.</li>
 </ol>
@@ -219,15 +246,19 @@ for (var i = 0; i &lt; bodyElement.children.length; i++) {
 <section id="innerhtml-y-textcontent" class="slide level2">
 <h2>innerHTML y textContent</h2>
 <ul>
-<li><em>innerHTML</em> analiza (<em>parsing</em>) el contenido como HTML y tarda más.</li>
-<li><em>textContent</em> interpreta el contenido como texto plano, es más rápido y previene ataques XSS (<em>cross-site scripting</em>)</li>
+<li><em>innerHTML</em> analiza (<em>parsing</em>) el contenido como HTML
+y tarda más.</li>
+<li><em>textContent</em> interpreta el contenido como texto plano, es
+más rápido y previene ataques XSS (<em>cross-site scripting</em>)</li>
 </ul>
 </section>
 <section id="inserción-en-el-dom" class="slide level2">
 <h2>Inserción en el DOM</h2>
 <ul>
-<li><em>appendChild</em> siempre añade el nuevo elemento como último hijo del padre.</li>
-<li>Para insertarlo en otra posición hay que usar <em>insertBefore</em>.</li>
+<li><em>appendChild</em> siempre añade el nuevo elemento como último
+hijo del padre.</li>
+<li>Para insertarlo en otra posición hay que usar
+<em>insertBefore</em>.</li>
 </ul>
 <pre><code>&lt;body&gt;
   &lt;h1 id=&quot;theTitle&quot; class=&quot;highlight summer&quot;&gt;What&#39;s happening?&lt;/h1&gt;
@@ -246,7 +277,10 @@ for (var i = 0; i &lt; bodyElement.children.length; i++) {
 <section id="gestión-de-eventos" class="slide level2">
 <h2>Gestión de eventos</h2>
 <ul>
-<li>Eventos típicos son <em>click</em>, <em>mouseover</em>, <em>DOMContentLoaded</em> (cuando el DOM se ha cargado), <em>load</em> (cuando todo el documento se ha cargado), <em>keydown</em>, <em>keyup</em>…</li>
+<li>Eventos típicos son <em>click</em>, <em>mouseover</em>,
+<em>DOMContentLoaded</em> (cuando el DOM se ha cargado), <em>load</em>
+(cuando todo el documento se ha cargado), <em>keydown</em>,
+<em>keyup</em>…</li>
 </ul>
 <pre><code>&lt;!doctype html&gt;
 &lt;html&gt;
@@ -267,8 +301,11 @@ for (var i = 0; i &lt; bodyElement.children.length; i++) {
 <section id="gestión-de-eventos-1" class="slide level2">
 <h2>Gestión de eventos</h2>
 <ul>
-<li>El manejador de eventos es invocado por el navegador con un parámetro de tipo evento.</li>
-<li><em>e.currentTarget</em> es el elemento al que se asoció el manejador, mientras que <em>e.target</em> es el elemento sobre el que ha ocurrido el evento.</li>
+<li>El manejador de eventos es invocado por el navegador con un
+parámetro de tipo evento.</li>
+<li><em>e.currentTarget</em> es el elemento al que se asoció el
+manejador, mientras que <em>e.target</em> es el elemento sobre el que ha
+ocurrido el evento.</li>
 </ul>
 <pre><code>function hide(e){
   e.currentTarget.style.visibility = &quot;hidden&quot;;
@@ -284,23 +321,31 @@ for(var i = 0; i &lt; ps.length; i++){
 </section>
 <section id="captura-y-burbujeo-de-eventos" class="slide level2">
 <h2>Captura y burbujeo de eventos</h2>
-<p><img data-src="https://javascript.info/article/bubbling-and-capturing/eventflow.svg" /></p>
+<p><img
+data-src="https://javascript.info/article/bubbling-and-capturing/eventflow.svg" /></p>
 <p><a href="https://javascript.info/">Fuente</a></p>
 </section>
 <section id="captura-y-burbujeo-de-eventos-1" class="slide level2">
 <h2>Captura y burbujeo de eventos</h2>
 <ul>
-<li>Los eventos comienzan por la raíz del árbol y se van propagando hacia abajo hasta llegar al elemento en que se produjo.</li>
-<li>En una segunda fase <em>burbujean</em> (<em>to bubble</em>) hacia arriba.</li>
-<li>En cada paso, se invoca a los manejadores de eventos que hayan sido definidos.</li>
-<li>El tercer parámetro de <em>addEventListener</em> es un booleano que define si el manejador de evento es para la fase de captura (o la de <em>bubbling</em> si es <em>false</em>).</li>
-<li><em>e.stopPropagation()</em> detiene el proceso en el manejador actual.</li>
+<li>Los eventos comienzan por la raíz del árbol y se van propagando
+hacia abajo hasta llegar al elemento en que se produjo.</li>
+<li>En una segunda fase <em>burbujean</em> (<em>to bubble</em>) hacia
+arriba.</li>
+<li>En cada paso, se invoca a los manejadores de eventos que hayan sido
+definidos.</li>
+<li>El tercer parámetro de <em>addEventListener</em> es un booleano que
+define si el manejador de evento es para la fase de captura (o la de
+<em>bubbling</em> si es <em>false</em>).</li>
+<li><em>e.stopPropagation()</em> detiene el proceso en el manejador
+actual.</li>
 </ul>
 </section>
 <section id="captura-y-burbujeo-de-eventos-2" class="slide level2">
 <h2>Captura y burbujeo de eventos</h2>
 <ul>
-<li>Comprueba la salida de la siguiente <a href="https://jsfiddle.net/qo2xzf9a/">aplicación web</a>.</li>
+<li>Comprueba la salida de la siguiente <a
+href="https://jsfiddle.net/qo2xzf9a/">aplicación web</a>.</li>
 </ul>
 <pre><code>&lt;!doctype html&gt;
 &lt;html&gt;
@@ -349,9 +394,14 @@ div {border: 1px solid black; padding: 20px; margin: 10px;}
 <section id="el-bucle-de-eventos" class="slide level2">
 <h2>El bucle de eventos</h2>
 <ul>
-<li>La ejecución del código de un programa en JavaScript se produce en un único hilo (normalmente, uno por cada pestaña del navegador).</li>
-<li>Este hilo se puede bloquear (de manera que la aplicación del navegador deja de responder) si se ejecuta código muy largo o un bucle infinito.</li>
-<li>Muchas funciones de la <em>API web</em> que tienen que ver con entrada/salida son <em>no bloqueantes</em> / <em>asíncronas</em> y se ejecutan en otro hilo.</li>
+<li>La ejecución del código de un programa en JavaScript se produce en
+un único hilo (normalmente, uno por cada pestaña del navegador).</li>
+<li>Este hilo se puede bloquear (de manera que la aplicación del
+navegador deja de responder) si se ejecuta código muy largo o un bucle
+infinito.</li>
+<li>Muchas funciones de la <em>API web</em> que tienen que ver con
+entrada/salida son <em>no bloqueantes</em> / <em>asíncronas</em> y se
+ejecutan en otro hilo.</li>
 </ul>
 <pre><code>function timeout() {
   timeoutID = setTimeout(f, 2000);
@@ -363,61 +413,105 @@ function f() {...}</code></pre>
 <section id="el-bucle-de-eventos-1" class="slide level2">
 <h2>El bucle de eventos</h2>
 <ul>
-<li>Pese a ejecutarse el código en un único hilo, el hilo principal de ejecución no se bloquea mientras las funciones de la API que hemos estudiado (por ejemplo, <em>setTimeout</em> o <em>addEventListener</em>) están esperando al evento correspondiente que disparará la ejecución de la función de <em>callback</em>.</li>
-<li>Cuando una función asíncrona de <em>callback</em> de la <em>API web</em> se tiene que ejecutar (por ejemplo, porque termina la cuenta atrás o porque se hace clic en un botón), la llamada correspondiente no se ejecuta inmediatamente, sino que se encola.</li>
+<li>Pese a ejecutarse el código en un único hilo, el hilo principal de
+ejecución no se bloquea mientras las funciones de la API que hemos
+estudiado (por ejemplo, <em>setTimeout</em> o <em>addEventListener</em>)
+están esperando al evento correspondiente que disparará la ejecución de
+la función de <em>callback</em>.</li>
+<li>Cuando una función asíncrona de <em>callback</em> de la <em>API
+web</em> se tiene que ejecutar (por ejemplo, porque termina la cuenta
+atrás o porque se hace clic en un botón), la llamada correspondiente no
+se ejecuta inmediatamente, sino que se encola.</li>
 </ul>
 </section>
 <section id="el-bucle-de-eventos-2" class="slide level2">
 <h2>El bucle de eventos</h2>
 <ul>
-<li>El bucle de eventos atiende y ejecuta las funciones almacenadas en la cola de funciones <em>callback</em>.</li>
-<li>El motor de JavaScript no procesa el bucle de eventos hasta que el código del <em>callback</em> actual termina.</li>
-<li>En general, el bucle de eventos no saca ninguna función de <em>callback</em> de la cola hasta que la pila esté vacía.</li>
-<li>Herramienta para visualizar todo lo anterior (<a href="http://latentflip.com/loupe/?code=ZnVuY3Rpb24gcHJpbnRIZWxsbygpIHsNCiAgICBjb25zb2xlLmxvZygnSGVsbG8gZnJvbSBiYXonKTsNCn0NCg0KZnVuY3Rpb24gYmF6KCkgew0KICAgIHNldFRpbWVvdXQocHJpbnRIZWxsbywgMzAwMCk7DQp9DQoNCmZ1bmN0aW9uIGJhcigpIHsNCiAgICBiYXooKTsNCn0NCg0KZnVuY3Rpb24gZm9vKCkgew0KICAgIGJhcigpOw0KfQ0KDQpmb28oKTs%3D!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D">un ejemplo</a>, <a href="http://latentflip.com/loupe/">otro</a>).</li>
+<li>El bucle de eventos atiende y ejecuta las funciones almacenadas en
+la cola de funciones <em>callback</em>.</li>
+<li>El motor de JavaScript no procesa el bucle de eventos hasta que el
+código del <em>callback</em> actual termina.</li>
+<li>En general, el bucle de eventos no saca ninguna función de
+<em>callback</em> de la cola hasta que la pila esté vacía.</li>
+<li>Herramienta para visualizar todo lo anterior (<a
+href="http://latentflip.com/loupe/?code=ZnVuY3Rpb24gcHJpbnRIZWxsbygpIHsNCiAgICBjb25zb2xlLmxvZygnSGVsbG8gZnJvbSBiYXonKTsNCn0NCg0KZnVuY3Rpb24gYmF6KCkgew0KICAgIHNldFRpbWVvdXQocHJpbnRIZWxsbywgMzAwMCk7DQp9DQoNCmZ1bmN0aW9uIGJhcigpIHsNCiAgICBiYXooKTsNCn0NCg0KZnVuY3Rpb24gZm9vKCkgew0KICAgIGJhcigpOw0KfQ0KDQpmb28oKTs%3D!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D">un
+ejemplo</a>, <a href="http://latentflip.com/loupe/">otro</a>).</li>
 </ul>
 </section>
 <section id="gestión-de-memoria" class="slide level2">
 <h2>Gestión de memoria</h2>
 <ul>
-<li>Cada hilo de JavaScript utiliza una pila y un <em>heap</em> de forma similar a otros lenguajes de programación.</li>
-<li>Existe también un espacio de memoria para las variables globales.</li>
-<li>El recolector de basura funciona de forma similar a otros lenguajes como Java, eliminando objetos de memoria cuando no son alcanzables.</li>
-<li>La tecnología de <em>web workers</em> permite definir código que se ejecuta en su propio hilo.</li>
+<li>Cada hilo de JavaScript utiliza una pila y un <em>heap</em> de forma
+similar a otros lenguajes de programación.</li>
+<li>Existe también un espacio de memoria para las variables
+globales.</li>
+<li>El recolector de basura funciona de forma similar a otros lenguajes
+como Java, eliminando objetos de memoria cuando no son alcanzables.</li>
+<li>La tecnología de <em>web workers</em> permite definir código que se
+ejecuta en su propio hilo.</li>
 </ul>
 </section>
 <section id="cuando-se-carga-una-página" class="slide level2">
 <h2>Cuando se carga una página</h2>
 <ul>
-<li>El navegador va construyendo el DOM conforme va analizando el documento HTML.</li>
-<li>Cuando encuentra un elemento <em>script</em> el analizador se detiene y se procesa el código en JavaScript; si este código contiene instrucciones <em>fuera de funciones</em> se ejecutan.</li>
-<li>Tras procesar un bloque <em>script</em> el navegador continúa analizando el HTML subsiguiente.</li>
-<li>Este bloqueo por defecto del analizador de HTML puede resultar en una mala experiencia de usuario (demasiado tiempo esperando la carga de la página); por ello, se puede sobrescribir con los atributos <em>async</em> y <em>defer</em>.</li>
+<li>El navegador va construyendo el DOM conforme va analizando el
+documento HTML.</li>
+<li>Cuando encuentra un elemento <em>script</em> el analizador se
+detiene y se procesa el código en JavaScript; si este código contiene
+instrucciones <em>fuera de funciones</em> se ejecutan.</li>
+<li>Tras procesar un bloque <em>script</em> el navegador continúa
+analizando el HTML subsiguiente.</li>
+<li>Este bloqueo por defecto del analizador de HTML puede resultar en
+una mala experiencia de usuario (demasiado tiempo esperando la carga de
+la página); por ello, se puede sobrescribir con los atributos
+<em>async</em> y <em>defer</em>.</li>
 </ul>
 </section>
 <section id="los-atributos-async-y-defer" class="slide level2">
 <h2>Los atributos async y defer</h2>
 <ul>
-<li>Los scripts marcados con uno de los atributos <em>async</em> o <em>defer</em> no detienen el análisis y visualización del documento; los scripts se descargan en segundo plano.</li>
-<li>Un script marcado con <em>async</em> se puede comenzar a descargar en cualquier momento y cuando se ha descargado se ejecuta; el evento <em>DOMContentLoaded</em> puede producirse antes o después de dicha ejecución; otros script marcados con <em>async</em> podrían ejecutarse antes de otro script marcado con <em>async</em> que aparece antes en el código.</li>
+<li>Los scripts marcados con uno de los atributos <em>async</em> o
+<em>defer</em> no detienen el análisis y visualización del documento;
+los scripts se descargan en segundo plano.</li>
+<li>Un script marcado con <em>async</em> se puede comenzar a descargar
+en cualquier momento y cuando se ha descargado se ejecuta; el evento
+<em>DOMContentLoaded</em> puede producirse antes o después de dicha
+ejecución; otros script marcados con <em>async</em> podrían ejecutarse
+antes de otro script marcado con <em>async</em> que aparece antes en el
+código.</li>
 </ul>
 </section>
 <section id="los-atributos-async-y-defer-1" class="slide level2">
 <h2>Los atributos async y defer</h2>
 <ul>
-<li>Un script marcado con <em>defer</em> se ejecuta cuando el árbol está listo, pero antes de disparar el evento <em>DOMContentLoaded</em>; los scripts marcados con <em>defer</em> se ejecutan en el orden en el que aparecen en el documento.</li>
+<li>Un script marcado con <em>defer</em> se ejecuta cuando el árbol está
+listo, pero antes de disparar el evento <em>DOMContentLoaded</em>; los
+scripts marcados con <em>defer</em> se ejecutan en el orden en el que
+aparecen en el documento.</li>
 </ul>
 </section>
 <section id="dónde-poner-el-javascript" class="slide level2">
 <h2>Dónde poner el JavaScript</h2>
 <ul>
-<li>Antiguamente se recomendaba colocar los scripts al final del <em>body</em> (o, en otras partes del documento, pero esperando al evento <em>DOMContentLoaded</em> para usar funciones como <em>querySelector</em>), pero esto introduce una secuenciación que puede resultar en una mala experiencia de usuario (la página se visualiza, pero no se puede interactuar sobre ella porque el código se está descargando todavía).</li>
+<li>Antiguamente se recomendaba colocar los scripts al final del
+<em>body</em> (o, en otras partes del documento, pero esperando al
+evento <em>DOMContentLoaded</em> para usar funciones como
+<em>querySelector</em>), pero esto introduce una secuenciación que puede
+resultar en una mala experiencia de usuario (la página se visualiza,
+pero no se puede interactuar sobre ella porque el código se está
+descargando todavía).</li>
 </ul>
 </section>
 <section id="dónde-poner-el-javascript-1" class="slide level2">
 <h2>Dónde poner el JavaScript</h2>
 <ul>
-<li>La práctica moderna es colocar los scripts en la cabecera (<em>head</em>) y usar <em>async</em> o <em>defer</em> según corresponda; así, los scripts se descargan asíncronamente sin bloquear el navegador.</li>
-<li>Para los scripts <em>async</em> es necesario seguir esperando al evento <em>DOMContentLoaded</em> antes de intentar recorrer el árbol DOM.</li>
+<li>La práctica moderna es colocar los scripts en la cabecera
+(<em>head</em>) y usar <em>async</em> o <em>defer</em> según
+corresponda; así, los scripts se descargan asíncronamente sin bloquear
+el navegador.</li>
+<li>Para los scripts <em>async</em> es necesario seguir esperando al
+evento <em>DOMContentLoaded</em> antes de intentar recorrer el árbol
+DOM.</li>
 </ul>
 <pre><code>&lt;script defer src=&quot;j1.js&quot;&gt;&lt;/script&gt;  // En HTML5 no es necesario usar type=&quot;text/javascript&quot;
 &lt;script async src=&quot;j2.js&quot;&gt;&lt;/script&gt;
@@ -426,25 +520,163 @@ function f() {...}</code></pre>
     </div>
   </div>
 
-  <script src="https://unpkg.com/reveal.js@3.9.2//js/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/zoom/zoom.js"></script>
 
   <script>
 
       // Full list of configuration options available at:
-      // https://github.com/hakimel/reveal.js#configuration
+      // https://revealjs.com/config/
       Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: {37:'prev',38:'prev',39:'next',40:'next'},
-        // Transition style
-        transition: 'linear', // none/fade/slide/convex/concave/zoom
 
-        // Optional reveal.js plugins
-        dependencies: [
-          { src: 'https://unpkg.com/reveal.js@3.9.2//lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: 'https://unpkg.com/reveal.js@3.9.2//plugin/zoom-js/zoom.js', async: true },
-          { src: 'https://unpkg.com/reveal.js@3.9.2//plugin/notes/notes.js', async: true }
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'linear',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
         ]
       });
     </script>

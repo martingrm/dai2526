@@ -8,28 +8,29 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/reset.css">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/theme/simple.css" id="theme">
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? 'https://unpkg.com/reveal.js@3.9.2//css/print/pdf.css' : 'https://unpkg.com/reveal.js@3.9.2//css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-  <!--[if lt IE 9]>
-  <script src="https://unpkg.com/reveal.js@3.9.2//lib/js/html5shiv.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/theme/simple.css" id="theme">
 </head>
 <body>
   <div class="reveal">
@@ -43,15 +44,21 @@
 <section id="hypertext-transfer-protocol-http" class="slide level2">
 <h2>Hypertext Transfer Protocol (HTTP)</h2>
 <p>Desarrollo de Aplicaciones en Internet</p>
-<p>Fuente: <a href="http://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177">HTTP: The Protocol Every Web Developer Must Know</a></p>
-<p>Fuente: <a href="https://http2.github.io/faq/">HTTP/2 Frequently Asked Questions</a></p>
+<p>Fuente: <a
+href="http://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177">HTTP:
+The Protocol Every Web Developer Must Know</a></p>
+<p>Fuente: <a href="https://http2.github.io/faq/">HTTP/2 Frequently
+Asked Questions</a></p>
 </section>
 <section id="http" class="slide level2">
 <h2>HTTP</h2>
 <ul>
 <li>Internet y la web no son lo mismo.</li>
-<li>Hypertext Transfer Protocol (HTTP) es un protocolo de comunicación para la capa de aplicación.</li>
-<li>La comunicación se produce habitualmente sobre TCP/IP, pero podría utilizarse cualquier otro transporte. De hecho, HTTP/3 usa QUIC en lugar de TCP.</li>
+<li>Hypertext Transfer Protocol (HTTP) es un protocolo de comunicación
+para la capa de aplicación.</li>
+<li>La comunicación se produce habitualmente sobre TCP/IP, pero podría
+utilizarse cualquier otro transporte. De hecho, HTTP/3 usa QUIC en lugar
+de TCP.</li>
 <li>El puerto por defecto es el 80, pero pueden usarse otros.</li>
 <li>Es un protocolo sin estado (<em>stateless</em>).</li>
 </ul>
@@ -59,31 +66,42 @@
 <section id="http-1" class="slide level2">
 <h2>HTTP</h2>
 <ul>
-<li>La comunicación se produce mediante un mecanismo de petición/respuesta entre un cliente y un servidor.</li>
-<li>La última versión es HTTP/3 de 2019, pero muchos clientes o servidores aún usan los estándares HTTP/2 de 2015 o HTTP/1.1 de 1997.</li>
+<li>La comunicación se produce mediante un mecanismo de
+petición/respuesta entre un cliente y un servidor.</li>
+<li>La última versión es HTTP/3 de 2019, pero muchos clientes o
+servidores aún usan los estándares HTTP/2 de 2015 o HTTP/1.1 de
+1997.</li>
 </ul>
 </section>
 <section id="urls" class="slide level2">
 <h2>URLs</h2>
 <ul>
-<li>Uniform Resource Locators (URLs). <img data-src="https://cdn.tutsplus.com/net/authors/jeremymcpeak/http1-url-structure.png" alt="URL de ejemplo" /></li>
+<li>Uniform Resource Locators (URLs). <img
+data-src="https://cdn.tutsplus.com/net/authors/jeremymcpeak/http1-url-structure.png"
+alt="URL de ejemplo" /></li>
 </ul>
 </section>
 <section id="verbos" class="slide level2">
 <h2>Verbos</h2>
 <ul>
 <li>Indican la acción a realizar por el servidor.</li>
-<li>Intentan ser lo suficientemente generales para dar cabida a cualquier tipo de solicitud.</li>
+<li>Intentan ser lo suficientemente generales para dar cabida a
+cualquier tipo de solicitud.</li>
 </ul>
 </section>
 <section id="verbos-1" class="slide level2">
 <h2>Verbos</h2>
 <ul>
-<li>Los verbos más usuales (existen otros como HEAD, TRACE, OPTIONS, etc.) son:
+<li>Los verbos más usuales (existen otros como HEAD, TRACE, OPTIONS,
+etc.) son:
 <ul>
-<li>GET: obtener un determinado recurso; el URL contiene toda la información necesaria para identificarlo.</li>
-<li>POST: crear un nuevo recurso; estas peticiones usualmente llevan datos adicionales (<em>payload</em> o <em>body</em>) que definen el recurso a crear.</li>
-<li>PUT: actualizar un recurso ya existente; la petición puede llevar datos adicionales si es necesario.</li>
+<li>GET: obtener un determinado recurso; el URL contiene toda la
+información necesaria para identificarlo.</li>
+<li>POST: crear un nuevo recurso; estas peticiones usualmente llevan
+datos adicionales (<em>payload</em> o <em>body</em>) que definen el
+recurso a crear.</li>
+<li>PUT: actualizar un recurso ya existente; la petición puede llevar
+datos adicionales si es necesario.</li>
 <li>DELETE: borrar un recurso determinado.</li>
 </ul></li>
 </ul>
@@ -91,17 +109,22 @@
 <section id="arquitecturas-rest" class="slide level2">
 <h2>Arquitecturas REST</h2>
 <ul>
-<li>Las arquitecturas (por ejemplo, de compartición de datos) que siguen un esquema como el de HTTP, esto es, peticiones sin estado basada en los verbos anteriores, se denominan REST.</li>
+<li>Las arquitecturas (por ejemplo, de compartición de datos) que siguen
+un esquema como el de HTTP, esto es, peticiones sin estado basada en los
+verbos anteriores, se denominan REST.</li>
 </ul>
 </section>
 <section id="códigos-de-estado" class="slide level2">
 <h2>Códigos de estado</h2>
 <ul>
-<li>Son devueltos por el servidor junto con la información demandada.</li>
+<li>Son devueltos por el servidor junto con la información
+demandada.</li>
 <li>Se definen ciertos rangos según el tipo de respuesta:
 <ul>
-<li>1xx: mensajes informativos; por ejemplo, informar al cliente de que puede seguir enviando los datos de una petición.</li>
-<li>2xx: la solicitud fue procesada correctamente (200 OK, 206 Partial Content).</li>
+<li>1xx: mensajes informativos; por ejemplo, informar al cliente de que
+puede seguir enviando los datos de una petición.</li>
+<li>2xx: la solicitud fue procesada correctamente (200 OK, 206 Partial
+Content).</li>
 </ul></li>
 </ul>
 </section>
@@ -110,7 +133,9 @@
 <ul>
 <li><p>Más rangos según el tipo de respuesta:</p>
 <ul>
-<li>3xx: el cliente ha de hacer alguna tarea adicional; por ejemplo, buscar el recurso en un URL diferente (301 Move Permanently, 303 See Other) o en su propia caché (304 Not Modified).</li>
+<li>3xx: el cliente ha de hacer alguna tarea adicional; por ejemplo,
+buscar el recurso en un URL diferente (301 Move Permanently, 303 See
+Other) o en su propia caché (304 Not Modified).</li>
 </ul></li>
 </ul>
 </section>
@@ -119,8 +144,10 @@
 <ul>
 <li><p>Más rangos según el tipo de respuesta:</p>
 <ul>
-<li>4xx: la petición es incorrecta o el recurso no existe (400 Bad Request, 401 Unauthorized, 404 Not Found).</li>
-<li>5xx: indican fallos del servidor durante el procesamiento (501 Not Implemented, 503 Service Unavailable).</li>
+<li>4xx: la petición es incorrecta o el recurso no existe (400 Bad
+Request, 401 Unauthorized, 404 Not Found).</li>
+<li>5xx: indican fallos del servidor durante el procesamiento (501 Not
+Implemented, 503 Service Unavailable).</li>
 </ul></li>
 </ul>
 </section>
@@ -146,73 +173,109 @@ Connection: close
 <section id="ejemplo-de-peticiónrespuesta-1" class="slide level2">
 <h2>Ejemplo de petición/respuesta</h2>
 <ul>
-<li>Una línea en blanco separa las cabeceras del cuerpo del mensaje.</li>
-<li>El cuerpo del mensaje puede contener datos incompletos enviados en varias tandas si se usa la cabecera <code>Transfer-Encoding: chunked</code>.</li>
-<li>Las cabeceras contienen metadatos. El estándar define las cabeceras posibles como, por ejemplo, <code>Content-Type: application/json; charset=utf-8</code>.</li>
+<li>Una línea en blanco separa las cabeceras del cuerpo del
+mensaje.</li>
+<li>El cuerpo del mensaje puede contener datos incompletos enviados en
+varias tandas si se usa la cabecera
+<code>Transfer-Encoding: chunked</code>.</li>
+<li>Las cabeceras contienen metadatos. El estándar define las cabeceras
+posibles como, por ejemplo,
+<code>Content-Type: application/json; charset=utf-8</code>.</li>
 </ul>
 </section>
 <section id="identificación" class="slide level2">
 <h2>Identificación</h2>
 <ul>
 <li>URLs recargadas con información de estado.</li>
-<li>Cookies: el servidor añade a su respuesta una cabecera como la siguiente y restringe la cookie a ciertos dominios:</li>
+<li>Cookies: el servidor añade a su respuesta una cabecera como la
+siguiente y restringe la cookie a ciertos dominios:</li>
 </ul>
 <pre><code>Set-Cookie: session-id=12345ABC; Expires=Wed, 09 Jun 2023 10:18:14 GMT 
 Set-Cookie: username=juan</code></pre>
 <ul>
-<li>El navegador añade al mensaje de la petición cuando se accede a dichos dominios una cabecera como</li>
+<li>El navegador añade al mensaje de la petición cuando se accede a
+dichos dominios una cabecera como</li>
 </ul>
 <pre><code>Cookie: session-id=12345ABC; username=juan</code></pre>
 </section>
 <section id="más-características-de-http" class="slide level2">
 <h2>Más características de HTTP</h2>
 <ul>
-<li>Conexiones persistentes. En HTTP/1.0 era necesario crear una nueva conexión para cada petición, lo que introduce un retardo inicial elevado (debido al <em>handshaking</em>).</li>
-<li>En HTTP/1.1 aunque la conexión se mantiene viva y la latencia inicial se reduce, cada petición tiene que empezar cuando acabe la anterior.</li>
-<li>En HTTP/1.1 la conexión se seguía produciendo mediante el patrón petición/respuesta, es decir, el servidor no puede enviar datos al cliente sin una petición explícita.</li>
+<li>Conexiones persistentes. En HTTP/1.0 era necesario crear una nueva
+conexión para cada petición, lo que introduce un retardo inicial elevado
+(debido al <em>handshaking</em>).</li>
+<li>En HTTP/1.1 aunque la conexión se mantiene viva y la latencia
+inicial se reduce, cada petición tiene que empezar cuando acabe la
+anterior.</li>
+<li>En HTTP/1.1 la conexión se seguía produciendo mediante el patrón
+petición/respuesta, es decir, el servidor no puede enviar datos al
+cliente sin una petición explícita.</li>
 </ul>
 </section>
 <section id="más-características" class="slide level2">
 <h2>Más características</h2>
 <ul>
-<li>HTTP/2 y HTTP/3 sí permiten que el servidor envíe datos sin peticiones explícitas (<em>server push</em>), lo que acelera la descarga de los elementos de una página web, que empieza a producirse antes de que el navegador sepa que los necesita.</li>
-<li>HTTP/1 y HTTP/1.1 usan un formato de texto; desde HTTP/2 es binario.</li>
+<li>HTTP/2 y HTTP/3 sí permiten que el servidor envíe datos sin
+peticiones explícitas (<em>server push</em>), lo que acelera la descarga
+de los elementos de una página web, que empieza a producirse antes de
+que el navegador sepa que los necesita.</li>
+<li>HTTP/1 y HTTP/1.1 usan un formato de texto; desde HTTP/2 es
+binario.</li>
 </ul>
 </section>
 <section id="más-características-de-http-1" class="slide level2">
 <h2>Más características de HTTP</h2>
 <ul>
-<li>Conexiones paralelas. HTTP/2 introduce <em>streams</em>, un mecanismo de multiplexación que permite varias peticiones y respuestas simultáneas (y mezcladas) sobre una misma conexión, lo que evita la necesidad de conexiones paralelas y la sobrecarga del sistema TCP, pero si hay error en un paquete correspondiente a una petición, los paquetes posteriores de otras peticiones quedan temporalmente bloqueados porque TCP no sabe que son de peticiones diferentes.</li>
+<li>Conexiones paralelas. HTTP/2 introduce <em>streams</em>, un
+mecanismo de multiplexación que permite varias peticiones y respuestas
+simultáneas (y mezcladas) sobre una misma conexión, lo que evita la
+necesidad de conexiones paralelas y la sobrecarga del sistema TCP, pero
+si hay error en un paquete correspondiente a una petición, los paquetes
+posteriores de otras peticiones quedan temporalmente bloqueados porque
+TCP no sabe que son de peticiones diferentes.</li>
 </ul>
 </section>
 <section id="más-características-de-http-2" class="slide level2">
 <h2>Más características de HTTP</h2>
 <ul>
-<li>HTTP/3 usa QUIC, un nuevo protocolo de transporte, que evita los problemas anteriores e introduce los <em>streams</em> como ciudadanos de primera clase.</li>
+<li>HTTP/3 usa QUIC, un nuevo protocolo de transporte, que evita los
+problemas anteriores e introduce los <em>streams</em> como ciudadanos de
+primera clase.</li>
 </ul>
 </section>
 <section id="más-características-de-http-3" class="slide level2">
 <h2>Más características de HTTP</h2>
 <ul>
-<li>Autenticación. El cliente ha de enviar una contraseña. Normalmente se utiliza en conjunción con SSL.</li>
+<li>Autenticación. El cliente ha de enviar una contraseña. Normalmente
+se utiliza en conjunción con SSL.</li>
 </ul>
 </section>
 <section id="más-características-de-http-4" class="slide level2">
 <h2>Más características de HTTP</h2>
 <ul>
-<li>HTTPS (puerto 443). Comunicaciones seguras mediante el protocolo criptográfico Transport Layer Security (TLS) y su predecesor, Secure Sockets Layer (SSL); se usa el término SSL para referirse indistintamente a ambos. Son una capa intermedia entre HTTP y TCP, por lo que el paso de HTTP a HTTPS no supone esfuerzo para el desarrollador web, excepto porque es necesario que el servidor aporte un <em>certificado</em> aprobado por una autoridad certificadora.</li>
+<li>HTTPS (puerto 443). Comunicaciones seguras mediante el protocolo
+criptográfico Transport Layer Security (TLS) y su predecesor, Secure
+Sockets Layer (SSL); se usa el término SSL para referirse
+indistintamente a ambos. Son una capa intermedia entre HTTP y TCP, por
+lo que el paso de HTTP a HTTPS no supone esfuerzo para el desarrollador
+web, excepto porque es necesario que el servidor aporte un
+<em>certificado</em> aprobado por una autoridad certificadora.</li>
 </ul>
 </section>
 <section id="más-características-de-http-5" class="slide level2">
 <h2>Más características de HTTP</h2>
 <ul>
-<li>Caché. Puede estar en el navegador o en un proxy intermedio. El servidor puede usar cabeceras para indicar cuándo expira un cierto contenido y debe procederse a una <em>revalidación</em> con el servidor.</li>
+<li>Caché. Puede estar en el navegador o en un proxy intermedio. El
+servidor puede usar cabeceras para indicar cuándo expira un cierto
+contenido y debe procederse a una <em>revalidación</em> con el
+servidor.</li>
 </ul>
 </section>
 <section id="software-para-clientes" class="slide level2">
 <h2>Software para clientes</h2>
 <ul>
-<li>El cliente puede ser un navegador (incluso un navegador <em>sin cabeza</em>) o cualquier otro tipo de programa.</li>
+<li>El cliente puede ser un navegador (incluso un navegador <em>sin
+cabeza</em>) o cualquier otro tipo de programa.</li>
 </ul>
 </section>
 <section id="software-para-clientes-1" class="slide level2">
@@ -221,8 +284,12 @@ Set-Cookie: username=juan</code></pre>
 <li>Un navegador está compuesto de:
 <ul>
 <li>interfaz de usuario</li>
-<li>motor de <em>renderizado</em> (<em>layout/rendering/web engine</em>): Webkit para Safari; Blink para Chrome, Chromium, Edge u Opera; Gecko para Firefox</li>
-<li>motor de JavaScript, habitualmente con compilación al vuelo (<em>just-in-time</em>): JavaScriptCore para Safari; V8 para Chrome, Chromium, Edge u Opera; SpiderMonkey para Firefox</li>
+<li>motor de <em>renderizado</em> (<em>layout/rendering/web
+engine</em>): Webkit para Safari; Blink para Chrome, Chromium, Edge u
+Opera; Gecko para Firefox</li>
+<li>motor de JavaScript, habitualmente con compilación al vuelo
+(<em>just-in-time</em>): JavaScriptCore para Safari; V8 para Chrome,
+Chromium, Edge u Opera; SpiderMonkey para Firefox</li>
 </ul></li>
 </ul>
 </section>
@@ -255,25 +322,163 @@ Set-Cookie: username=juan</code></pre>
     </div>
   </div>
 
-  <script src="https://unpkg.com/reveal.js@3.9.2//js/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/zoom/zoom.js"></script>
 
   <script>
 
       // Full list of configuration options available at:
-      // https://github.com/hakimel/reveal.js#configuration
+      // https://revealjs.com/config/
       Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: {37:'prev',38:'prev',39:'next',40:'next'},
-        // Transition style
-        transition: 'linear', // none/fade/slide/convex/concave/zoom
 
-        // Optional reveal.js plugins
-        dependencies: [
-          { src: 'https://unpkg.com/reveal.js@3.9.2//lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: 'https://unpkg.com/reveal.js@3.9.2//plugin/zoom-js/zoom.js', async: true },
-          { src: 'https://unpkg.com/reveal.js@3.9.2//plugin/notes/notes.js', async: true }
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'linear',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
         ]
       });
     </script>

@@ -8,28 +8,29 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/reset.css">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/theme/simple.css" id="theme">
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? 'https://unpkg.com/reveal.js@3.9.2//css/print/pdf.css' : 'https://unpkg.com/reveal.js@3.9.2//css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-  <!--[if lt IE 9]>
-  <script src="https://unpkg.com/reveal.js@3.9.2//lib/js/html5shiv.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/theme/simple.css" id="theme">
 </head>
 <body>
   <div class="reveal">
@@ -43,36 +44,48 @@
 <section id="el-lenguaje-javascript" class="slide level2">
 <h2>El lenguaje JavaScript</h2>
 <p>Desarrollo de Aplicaciones en Internet</p>
-<p>Fuente: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">A re-introduction to JavaScript</a></p>
+<p>Fuente: <a
+href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">A
+re-introduction to JavaScript</a></p>
 </section>
 <section id="historia" class="slide level2">
 <h2>Historia</h2>
 <ul>
-<li>Diseñado en 1995 por Netscape Communications para su navegador (heredero de Mosaic, el primer navegador gráfico).</li>
-<li>Se <em>inspira</em> levemente en algunos aspectos de Java, que estaba entonces en auge, pero tiene elementos de lenguajes funcionales como Scheme.</li>
+<li>Diseñado en 1995 por Netscape Communications para su navegador
+(heredero de Mosaic, el primer navegador gráfico).</li>
+<li>Se <em>inspira</em> levemente en algunos aspectos de Java, que
+estaba entonces en auge, pero tiene elementos de lenguajes funcionales
+como Scheme.</li>
 </ul>
 </section>
 <section id="historia-1" class="slide level2">
 <h2>Historia</h2>
 <ul>
-<li>Bajo el nombre EcmaScript (ES) es un estándar de Ecma International desde pocos meses después de su creación.</li>
-<li>La versión 3 apareció en 1999, la 5 en 2009, la 6 en 2015, la 7 en 2016, la 8 en 2017, etc. (ahora se revisa anualmente).</li>
+<li>Bajo el nombre EcmaScript (ES) es un estándar de Ecma International
+desde pocos meses después de su creación.</li>
+<li>La versión 3 apareció en 1999, la 5 en 2009, la 6 en 2015, la 7 en
+2016, la 8 en 2017, etc. (ahora se revisa anualmente).</li>
 </ul>
 </section>
 <section id="características" class="slide level2">
 <h2>Características</h2>
 <ul>
 <li>JavaScript no tiene concepto de entrada/salida.</li>
-<li>Es un lenguaje de script pensado para ser ejecutado en un entorno que es el que aporta mecanismos para la comunicación con el exterior: navegador, formularios en PDFs, Node.js, MondoDB, etc.</li>
-<li>En 1995, Netscape Enterprise Server ya permitía programar en JavaScript en el lado del servidor.</li>
-<li>Lenguaje interpretado (no compilado), aunque muchos motores incorporan la compilación <em>just-in-time</em>.</li>
+<li>Es un lenguaje de script pensado para ser ejecutado en un entorno
+que es el que aporta mecanismos para la comunicación con el exterior:
+navegador, formularios en PDFs, Node.js, MondoDB, etc.</li>
+<li>En 1995, Netscape Enterprise Server ya permitía programar en
+JavaScript en el lado del servidor.</li>
+<li>Lenguaje interpretado (no compilado), aunque muchos motores
+incorporan la compilación <em>just-in-time</em>.</li>
 </ul>
 </section>
 <section id="introducción" class="slide level2">
 <h2>Introducción</h2>
 <ul>
 <li>Algunas estructuras son similares a Java o C.</li>
-<li>JavaScript no tiene clases, sino prototipos de objetos. ES6 aporta una especie de clases como <em>syntactic sugar</em>.</li>
+<li>JavaScript no tiene clases, sino prototipos de objetos. ES6 aporta
+una especie de clases como <em>syntactic sugar</em>.</li>
 <li>Es un lenguaje de tipos <em>débiles</em> y <em>dinámicos</em>.</li>
 <li>Las funciones son objetos de primera clase.</li>
 </ul>
@@ -86,7 +99,8 @@
 <li><em>String</em></li>
 <li><em>Boolean</em></li>
 <li><em>Symbol</em> (desde ES6)</li>
-<li><em>Object</em> (<em>Function</em>, <em>Array</em>, <em>Date</em>, <em>RegExp</em>…)</li>
+<li><em>Object</em> (<em>Function</em>, <em>Array</em>, <em>Date</em>,
+<em>RegExp</em>…)</li>
 <li><em>null</em>, <em>undefined</em></li>
 </ul></li>
 </ul>
@@ -94,7 +108,9 @@
 <section id="números" class="slide level2">
 <h2>Números</h2>
 <ul>
-<li>Los números son reales de doble precisión. Como en otros lenguajes, la representación en coma flotante de ciertos valores <a href="https://0.30000000000000004.com/">no es exacta</a>.</li>
+<li>Los números son reales de doble precisión. Como en otros lenguajes,
+la representación en coma flotante de ciertos valores <a
+href="https://0.30000000000000004.com/">no es exacta</a>.</li>
 <li>Se pueden usar los operadores aritméticos habituales.</li>
 <li>No existen enteros como tales.</li>
 <li>Existe un objeto predefinido <em>Math</em>.</li>
@@ -118,7 +134,8 @@ isFinite(-Infinity);   // false</code></pre>
 <section id="cadenas" class="slide level2">
 <h2>Cadenas</h2>
 <ul>
-<li>Secuencias de caracteres Unicode en UTF-16: los caracteres se representan con uno o dos bloques de 16 bits.</li>
+<li>Secuencias de caracteres Unicode en UTF-16: los caracteres se
+representan con uno o dos bloques de 16 bits.</li>
 <li>Son un tipo de objeto especial.</li>
 </ul>
 <pre><code>&quot;hello&quot;.length;    // 5
@@ -130,15 +147,20 @@ isFinite(-Infinity);   // false</code></pre>
 <h2>Otros tipos</h2>
 <ul>
 <li><em>null</em> (indica falta deliberada de valor)</li>
-<li><em>undefined</em> (valor de una variable declarada pero sin valor asignado)</li>
-<li>Los posibles valores de un booleano son <em>true</em> y <em>false</em>.</li>
-<li>Cuando un valor se convierte a <em>Boolean</em> (implícita o explícitamente), <em>false</em>, 0, la cadena vacía (""), <em>NaN</em>, <em>null</em> y <em>undefined</em> son falsos.</li>
+<li><em>undefined</em> (valor de una variable declarada pero sin valor
+asignado)</li>
+<li>Los posibles valores de un booleano son <em>true</em> y
+<em>false</em>.</li>
+<li>Cuando un valor se convierte a <em>Boolean</em> (implícita o
+explícitamente), <em>false</em>, 0, la cadena vacía (““), <em>NaN</em>,
+<em>null</em> y <em>undefined</em> son falsos.</li>
 </ul>
 </section>
 <section id="variables" class="slide level2">
 <h2>Variables</h2>
 <ul>
-<li>Se declaran con la palabra reservada <em>var</em> o <em>let</em>.</li>
+<li>Se declaran con la palabra reservada <em>var</em> o
+<em>let</em>.</li>
 </ul>
 <pre><code>var a;    // undefined en este momento
 var name = &quot;simon&quot;;
@@ -147,16 +169,21 @@ nanne = &quot;garfunkel&quot;;   // no da error salvo que usemos &#39;use strict
 <section id="variables-1" class="slide level2">
 <h2>Variables</h2>
 <ul>
-<li>El ámbito de las variables declaradas con <em>var</em> es el de la función.</li>
-<li>Declarar una variable con <em>var</em> en un bloque equivale a declararla al principio de la función.</li>
-<li>Declarar con <em>var</em> en un bloque una variable homónima a la de un bloque exterior no crea una nueva variable.</li>
-<li>Las variables declaradas con <em>let</em> pertenecen al ámbito del bloque correspondiente.</li>
+<li>El ámbito de las variables declaradas con <em>var</em> es el de la
+función.</li>
+<li>Declarar una variable con <em>var</em> en un bloque equivale a
+declararla al principio de la función.</li>
+<li>Declarar con <em>var</em> en un bloque una variable homónima a la de
+un bloque exterior no crea una nueva variable.</li>
+<li>Las variables declaradas con <em>let</em> pertenecen al ámbito del
+bloque correspondiente.</li>
 </ul>
 </section>
 <section id="variables-2" class="slide level2">
 <h2>Variables</h2>
 <ul>
-<li>Nota: ni <em>console.log</em> ni <em>document.write</em> son parte del estándar del lenguaje.</li>
+<li>Nota: ni <em>console.log</em> ni <em>document.write</em> son parte
+del estándar del lenguaje.</li>
 </ul>
 <pre><code>function f() {
   var a = 5;
@@ -212,7 +239,9 @@ x = x + 5
 <section id="operadores-1" class="slide level2">
 <h2>Operadores</h2>
 <ul>
-<li>La evaluación en cortocircuito (presente en otros muchos lenguajes) es útil para comprobar si un objeto es <em>null</em> antes de acceder a sus miembros o para dar valores por defecto.</li>
+<li>La evaluación en cortocircuito (presente en otros muchos lenguajes)
+es útil para comprobar si un objeto es <em>null</em> antes de acceder a
+sus miembros o para dar valores por defecto.</li>
 </ul>
 <pre><code>var name = o &amp;&amp; o.getName();
 var name = otherName || &quot;default&quot;;</code></pre>
@@ -248,7 +277,8 @@ for (var i = 0; i &lt; 5; i++) {
 <section id="estructuras-de-control-2" class="slide level2">
 <h2>Estructuras de control</h2>
 <ul>
-<li>En la instrucción <em>switch</em> se usa === para la comparación (también con cadenas).</li>
+<li>En la instrucción <em>switch</em> se usa === para la comparación
+(también con cadenas).</li>
 </ul>
 <pre><code>switch(a + 3) {
   case b + 2:
@@ -264,9 +294,12 @@ for (var i = 0; i &lt; 5; i++) {
 <section id="objetos" class="slide level2">
 <h2>Objetos</h2>
 <ul>
-<li>Los objetos de JavaScript son como colecciones de pares nombre-valor (similar a los diccionarios en Python o los HashMap de Java).</li>
-<li>El nombre es una cadena. El valor es cualquier valor de JavaScript (incluyendo otros objetos).</li>
-<li>Dos formas equivalentes de crear objetos. La segunda es la preferida: sintaxis de objetos literales usada en JSON.</li>
+<li>Los objetos de JavaScript son como colecciones de pares nombre-valor
+(similar a los diccionarios en Python o los HashMap de Java).</li>
+<li>El nombre es una cadena. El valor es cualquier valor de JavaScript
+(incluyendo otros objetos).</li>
+<li>Dos formas equivalentes de crear objetos. La segunda es la
+preferida: sintaxis de objetos literales usada en JSON.</li>
 </ul>
 <pre><code>var obj = new Object();
 var obj = {};</code></pre>
@@ -309,7 +342,8 @@ var name = obj[prop]; // esta permite obtener nombres de propiedades durante la 
 <h2>Arrays</h2>
 <ul>
 <li>Son un tipo especial de objeto.</li>
-<li>Las propiedades numéricas solo se pueden acceder con la sintaxis [].</li>
+<li>Las propiedades numéricas solo se pueden acceder con la sintaxis
+[].</li>
 </ul>
 <pre><code>var a = new Array();
 a[0] = &quot;dog&quot;;
@@ -332,8 +366,11 @@ a.length;        // 101</code></pre>
 <section id="arrays-2" class="slide level2">
 <h2>Arrays</h2>
 <ul>
-<li>Podemos iterar con un bucle <em>for</em> o usando <em>forEach</em>.</li>
-<li>Métodos disponibles para arrays: <em>toString</em>, <em>concat</em>, <em>join</em>, <em>pop</em>, <em>push</em>, <em>reverse</em>, <em>shift</em>, <em>slice</em>, <em>sort</em>, etc.</li>
+<li>Podemos iterar con un bucle <em>for</em> o usando
+<em>forEach</em>.</li>
+<li>Métodos disponibles para arrays: <em>toString</em>, <em>concat</em>,
+<em>join</em>, <em>pop</em>, <em>push</em>, <em>reverse</em>,
+<em>shift</em>, <em>slice</em>, <em>sort</em>, etc.</li>
 </ul>
 <pre><code>[&quot;dog&quot;, &quot;cat&quot;].forEach(function(currentValue, index, array) {
   // Hacer algo con currentValue o array[index]
@@ -352,7 +389,8 @@ a.length;        // 101</code></pre>
 <section id="funciones-1" class="slide level2">
 <h2>Funciones</h2>
 <ul>
-<li>Se puede invocar una función sin pasar todos los parámetros (valdrán <em>undefined</em>).</li>
+<li>Se puede invocar una función sin pasar todos los parámetros (valdrán
+<em>undefined</em>).</li>
 <li>Se pueden pasar más argumentos que los declarados.</li>
 </ul>
 <pre><code>add(); // NaN
@@ -363,7 +401,8 @@ a.length;        // 101</code></pre>
 <section id="funciones-2" class="slide level2">
 <h2>Funciones</h2>
 <ul>
-<li>Lo anterior tiene su utilidad en el caso de funciones variádicas:</li>
+<li>Lo anterior tiene su utilidad en el caso de funciones
+variádicas:</li>
 </ul>
 <pre><code>function avg() {
   var sum = 0;
@@ -391,7 +430,8 @@ g(2, 3, 4, 5);</code></pre>
 <section id="immediately-invoked-functions" class="slide level2">
 <h2>Immediately-invoked functions</h2>
 <ul>
-<li>Un <em>truco</em> para esconder variables locales dentro de su bloque antes de que existiera <em>let</em>:</li>
+<li>Un <em>truco</em> para esconder variables locales dentro de su
+bloque antes de que existiera <em>let</em>:</li>
 </ul>
 <pre><code>var a = 1;
 var b = 2;
@@ -421,7 +461,8 @@ var s = new Person(&quot;Simon&quot;, &quot;Willison&quot;);</code></pre>
 <section id="objetos-personalizados-1" class="slide level2">
 <h2>Objetos personalizados</h2>
 <ul>
-<li>Una manera mejor que la anterior que no crea una función por cada objeto:</li>
+<li>Una manera mejor que la anterior que no crea una función por cada
+objeto:</li>
 </ul>
 <pre><code>function personFullName() {
   return this.first + &#39; &#39; + this.last;
@@ -440,15 +481,20 @@ function Person(first, last) {
 <h2>Objetos personalizados</h2>
 <ul>
 <li>Una manera aún mejor es usar los prototipos de JavaScript.</li>
-<li>Cuando se crea una función en JavaScript, el intérprete le añade una propiedad <em>prototype</em>.</li>
-<li>Esta propiedad apunta a un <em>objeto prototipo</em> que será luego también compartido por todos los objetos creados usando la función constructora.</li>
-<li>A este objeto prototipo se puede acceder también desde tales objetos con la propiedad <em>__proto__</em>.</li>
+<li>Cuando se crea una función en JavaScript, el intérprete le añade una
+propiedad <em>prototype</em>.</li>
+<li>Esta propiedad apunta a un <em>objeto prototipo</em> que será luego
+también compartido por todos los objetos creados usando la función
+constructora.</li>
+<li>A este objeto prototipo se puede acceder también desde tales objetos
+con la propiedad <em>__proto__</em>.</li>
 </ul>
 </section>
 <section id="objetos-personalizados-3" class="slide level2">
 <h2>Objetos personalizados</h2>
 <ul>
-<li><em>Person.prototype</em> es un objeto compartido por todas las instancias de <em>Person</em>.</li>
+<li><em>Person.prototype</em> es un objeto compartido por todas las
+instancias de <em>Person</em>.</li>
 </ul>
 <pre><code>function Person(first, last) {
   this.first = first;
@@ -464,7 +510,9 @@ Person.prototype.fullNameReversed = function() {
 <section id="objetos-personalizados-4" class="slide level2">
 <h2>Objetos personalizados</h2>
 <ul>
-<li>Al intentar acceder a una propiedad de un objeto <em>Person</em> sin asignación explícita, el intérprete la busca en <em>Person.prototype</em>.</li>
+<li>Al intentar acceder a una propiedad de un objeto <em>Person</em> sin
+asignación explícita, el intérprete la busca en
+<em>Person.prototype</em>.</li>
 </ul>
 <pre><code>function Person(first, last) {
   this.first = first;
@@ -481,7 +529,9 @@ var t= s.fullName() + &quot;, &quot; + s.age;  // &quot;Simon Willison, 32&quot;
 <section id="objetos-personalizados-5" class="slide level2">
 <h2>Objetos personalizados</h2>
 <ul>
-<li>Los prototipos se pueden modificar en tiempo de ejecución lo que significa que pueden añadirse métodos a un objeto en cualquier momento.</li>
+<li>Los prototipos se pueden modificar en tiempo de ejecución lo que
+significa que pueden añadirse métodos a un objeto en cualquier
+momento.</li>
 </ul>
 <pre><code>s = new Person(&quot;Simon&quot;, &quot;Willison&quot;);
 s.firstNameCaps(); // TypeError on line 1: s.firstNameCaps is not a function
@@ -494,7 +544,8 @@ s.firstNameCaps(); // &quot;SIMON&quot;</code></pre>
 <section id="objetos-personalizados-6" class="slide level2">
 <h2>Objetos personalizados</h2>
 <ul>
-<li>Se pueden añadir cosas al prototipo de los objetos predefinidos de JavaScript:</li>
+<li>Se pueden añadir cosas al prototipo de los objetos predefinidos de
+JavaScript:</li>
 </ul>
 <pre><code>var s = &quot;Simon&quot;;
 s.reversed(); // TypeError on line 1: s.reversed is not a function
@@ -531,7 +582,8 @@ s.reversed(); // nomiS</code></pre>
 <section id="clases-en-es6-1" class="slide level2">
 <h2>Clases en ES6</h2>
 <ul>
-<li>No se puede poner una propiedad como privada (existen formas de conseguir algo equivalente que no veremos).</li>
+<li>No se puede poner una propiedad como privada (existen formas de
+conseguir algo equivalente que no veremos).</li>
 </ul>
 <pre><code>let today = new SimpleDate(2017, 1, 14);
 today.addDays(1);
@@ -575,7 +627,8 @@ class Manager extends Employee {
 <section id="funciones-anidadas" class="slide level2">
 <h2>Funciones anidadas</h2>
 <ul>
-<li>Las funciones anidadas pueden acceder a variables del ámbito de su función padre.</li>
+<li>Las funciones anidadas pueden acceder a variables del ámbito de su
+función padre.</li>
 </ul>
 <pre><code>function betterExampleNeeded() {
   var a = 1;
@@ -588,8 +641,10 @@ class Manager extends Employee {
 <section id="clausuras" class="slide level2">
 <h2>Clausuras</h2>
 <ul>
-<li>Son necesarias cuando una función anidada que accede a algunas variables de la función madre sobrevive a esta.</li>
-<li>Una clausura se implementa como un registro que almacena una función y un entorno de la pila.</li>
+<li>Son necesarias cuando una función anidada que accede a algunas
+variables de la función madre sobrevive a esta.</li>
+<li>Una clausura se implementa como un registro que almacena una función
+y un entorno de la pila.</li>
 </ul>
 <pre><code>function makeAdder(a) {
   return function(b) {
@@ -604,7 +659,8 @@ y(7); // 27</code></pre>
 <section id="clausuras-1" class="slide level2">
 <h2>Clausuras</h2>
 <ul>
-<li>Las clausuras llevan fácilmente a confusión si no se entiende bien cómo funcionan.</li>
+<li>Las clausuras llevan fácilmente a confusión si no se entiende bien
+cómo funcionan.</li>
 </ul>
 <pre><code> function f () {
    var funcs = [];
@@ -686,25 +742,163 @@ for (let i = 1; i &lt;= 5; i++) {
     </div>
   </div>
 
-  <script src="https://unpkg.com/reveal.js@3.9.2//js/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/zoom/zoom.js"></script>
 
   <script>
 
       // Full list of configuration options available at:
-      // https://github.com/hakimel/reveal.js#configuration
+      // https://revealjs.com/config/
       Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: {37:'prev',38:'prev',39:'next',40:'next'},
-        // Transition style
-        transition: 'linear', // none/fade/slide/convex/concave/zoom
 
-        // Optional reveal.js plugins
-        dependencies: [
-          { src: 'https://unpkg.com/reveal.js@3.9.2//lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: 'https://unpkg.com/reveal.js@3.9.2//plugin/zoom-js/zoom.js', async: true },
-          { src: 'https://unpkg.com/reveal.js@3.9.2//plugin/notes/notes.js', async: true }
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'linear',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
         ]
       });
     </script>

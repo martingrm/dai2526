@@ -8,28 +8,29 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/reset.css">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//css/theme/simple.css" id="theme">
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? 'https://unpkg.com/reveal.js@3.9.2//css/print/pdf.css' : 'https://unpkg.com/reveal.js@3.9.2//css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-  <!--[if lt IE 9]>
-  <script src="https://unpkg.com/reveal.js@3.9.2//lib/js/html5shiv.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2//dist/theme/simple.css" id="theme">
 </head>
 <body>
   <div class="reveal">
@@ -47,39 +48,52 @@
 <section id="introducción" class="slide level2">
 <h2>Introducción</h2>
 <ul>
-<li>Los caracteres tanto en memoria como en otros dispositivos de almacenamiento se representan como secuencias de bits</li>
+<li>Los caracteres tanto en memoria como en otros dispositivos de
+almacenamiento se representan como secuencias de bits</li>
 <li>Un fichero de texto con una sola letra ‘a’ ocupa 1 byte</li>
-<li>Si el fichero es binario (documento de un procesador de textos, por ejemplo) puede ocupar mucho más</li>
+<li>Si el fichero es binario (documento de un procesador de textos, por
+ejemplo) puede ocupar mucho más</li>
 </ul>
 </section>
 <section id="us-ascii" class="slide level2">
 <h2>US-ASCII</h2>
 <ul>
-<li>El estándar US-ASCII (también conocido como ASCII, American Standard Code for Information Interchange) representa cada carácter con 7 bits</li>
+<li>El estándar US-ASCII (también conocido como ASCII, American Standard
+Code for Information Interchange) representa cada carácter con 7
+bits</li>
 <li>Su origen se remota a la década de 1960</li>
-<li>Se decidió usar 7 bits porque eran suficientes para representar los 128 caracteres deseados y también para reducir el coste de la transmisión</li>
+<li>Se decidió usar 7 bits porque eran suficientes para representar los
+128 caracteres deseados y también para reducir el coste de la
+transmisión</li>
 <li>En la práctica se usan 8 bits para que coincida con un byte</li>
 </ul>
 </section>
 <section id="us-ascii-1" class="slide level2">
 <h2>US-ASCII</h2>
 <div style="width:700px; margin: 0 auto;">
-<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/c/cf/USASCII_code_chart.png" /></p>
+<p><img
+data-src="https://upload.wikimedia.org/wikipedia/commons/c/cf/USASCII_code_chart.png" /></p>
 </div>
 </section>
 <section id="isoiec-8859" class="slide level2">
 <h2>ISO/IEC 8859</h2>
 <ul>
-<li>Una serie de estándares de codificación de caracteres de 8 bits (256 caracteres diferentes)</li>
+<li>Una serie de estándares de codificación de caracteres de 8 bits (256
+caracteres diferentes)</li>
 <li>15 codificaciones de caracteres para diferentes lenguajes</li>
-<li>Los 128 primeros caracteres (0-127) son compatibles con US-ASCII</li>
+<li>Los 128 primeros caracteres (0-127) son compatibles con
+US-ASCII</li>
 </ul>
 </section>
 <section id="isoiec-8859-1" class="slide level2">
 <h2>ISO/IEC 8859</h2>
 <ul>
-<li>Si no permitimos el cambio de la codificación de caracteres en mitad de un documento, no es posible mezclar textos en español y ruso, por ejemplo</li>
-<li>En el caso de ficheros de texto, como estos no contienen la codificación que usan, es necesario indicarla explícitamente al programa con el que vayamos a visualizarlos o editarlos</li>
+<li>Si no permitimos el cambio de la codificación de caracteres en mitad
+de un documento, no es posible mezclar textos en español y ruso, por
+ejemplo</li>
+<li>En el caso de ficheros de texto, como estos no contienen la
+codificación que usan, es necesario indicarla explícitamente al programa
+con el que vayamos a visualizarlos o editarlos</li>
 </ul>
 </section>
 <section id="isoiec-8859-1-latin-1" class="slide level2">
@@ -88,13 +102,15 @@
 <li>Inglés, islandés, español, francés, catalán…</li>
 </ul>
 <div style="width:500px; margin: 0 auto;">
-<p><img data-src="https://www.charset.org/img/charsets/iso-8859-1.gif" /></p>
+<p><img
+data-src="https://www.charset.org/img/charsets/iso-8859-1.gif" /></p>
 </div>
 </section>
 <section id="isoiec-8859-15" class="slide level2">
 <h2>ISO/IEC 8859-15</h2>
 <ul>
-<li>Añade a ISO/IEC 8859-1 el símbolo del euro y algún otro como la ligadura ‘œ’ del francés (con ISO/IEC 8859-1 se escriben como ‘oe’)</li>
+<li>Añade a ISO/IEC 8859-1 el símbolo del euro y algún otro como la
+ligadura ‘œ’ del francés (con ISO/IEC 8859-1 se escriben como ‘oe’)</li>
 </ul>
 </section>
 <section id="isoiec-8859-2" class="slide level2">
@@ -103,7 +119,8 @@
 <li>Bosnio, croata, checo, eslovaco, húngaro, serbio…</li>
 </ul>
 <div style="width:500px; margin: 0 auto;">
-<p><img data-src="https://www.charset.org/img/charsets/iso-8859-2.gif" /></p>
+<p><img
+data-src="https://www.charset.org/img/charsets/iso-8859-2.gif" /></p>
 </div>
 </section>
 <section id="isoiec-8859-5" class="slide level2">
@@ -112,34 +129,42 @@
 <li>Ruso, bielorruso, macedonio, serbio, búlgaro…</li>
 </ul>
 <div style="width:500px; margin: 0 auto;">
-<p><img data-src="https://www.charset.org/img/charsets/iso-8859-5.gif" /></p>
+<p><img
+data-src="https://www.charset.org/img/charsets/iso-8859-5.gif" /></p>
 </div>
 </section>
 <section id="otras-codificaciones" class="slide level2">
 <h2>Otras codificaciones</h2>
 <ul>
-<li>Algunos sistemas operativos incluían codificaciones alternativas (Windows-1252, por ejemplo)</li>
+<li>Algunos sistemas operativos incluían codificaciones alternativas
+(Windows-1252, por ejemplo)</li>
 </ul>
 </section>
 <section id="unicode" class="slide level2">
 <h2>Unicode</h2>
 <ul>
-<li>Estándar del Unicode Consortium que intenta reemplazar a todos los anteriores y permite entornos plurilingües</li>
-<li>Cada carácter se identifica mediante un número o punto de código</li>
-<li>Los puntos de código no cambian, pero hay diferentes codificaciones: UTF-8, UTF-16, UTF-32, etc.</li>
+<li>Estándar del Unicode Consortium que intenta reemplazar a todos los
+anteriores y permite entornos plurilingües</li>
+<li>Cada carácter se identifica mediante un número o punto de
+código</li>
+<li>Los puntos de código no cambian, pero hay diferentes codificaciones:
+UTF-8, UTF-16, UTF-32, etc.</li>
 </ul>
 </section>
 <section id="unicode-1" class="slide level2">
 <h2>Unicode</h2>
 <ul>
 <li>El estándar Unicode permite 1.114.112 puntos de código</li>
-<li>Actualmente están asignados unos 140.000, incluyendo emojis (‘🥘’, U+1F958), caracteres de alfabetos antiguos, etc.</li>
+<li>Actualmente están asignados unos 140.000, incluyendo emojis (‘🥘’,
+U+1F958), caracteres de alfabetos antiguos, etc.</li>
 </ul>
 </section>
-<section id="codificaciones-de-caracteres-de-unicode" class="slide level2">
+<section id="codificaciones-de-caracteres-de-unicode"
+class="slide level2">
 <h2>Codificaciones de caracteres de Unicode</h2>
 <ul>
-<li>UTF-8 es la más usada en la web: 1 byte para los primeros 128 puntos de código (iguales a los de US-ASCII) y hasta 4 para los restantes</li>
+<li>UTF-8 es la más usada en la web: 1 byte para los primeros 128 puntos
+de código (iguales a los de US-ASCII) y hasta 4 para los restantes</li>
 <li>UTF-16: 2 o 4 bytes por carácter</li>
 <li>UTF-32: 4 bytes por carácter</li>
 </ul>
@@ -147,9 +172,12 @@
 <section id="cómo-usar-unicode" class="slide level2">
 <h2>Cómo usar Unicode</h2>
 <ul>
-<li>Usar un editor de texto que lo soporte (Unicode suele ser la codificación por defecto hoy en día)</li>
-<li>Usar un lenguaje de programación que lo soporte (muchos lo hacen de forma nativa)</li>
-<li>Usar un tipo de letra adecuado (ningún tipo de letra soporta todos los caracteres de Unicode)</li>
+<li>Usar un editor de texto que lo soporte (Unicode suele ser la
+codificación por defecto hoy en día)</li>
+<li>Usar un lenguaje de programación que lo soporte (muchos lo hacen de
+forma nativa)</li>
+<li>Usar un tipo de letra adecuado (ningún tipo de letra soporta todos
+los caracteres de Unicode)</li>
 </ul>
 </section>
 <section id="programar-con-caracteres-de-unicode" class="slide level2">
@@ -169,8 +197,10 @@
 <h2>Entidades de HTML</h2>
 <ul>
 <li>En desuso</li>
-<li>Permiten representar algunos caracteres que no son US-ASCII dentro de un documento HTML</li>
-<li>El carácter ‘Ã’ se puede representar como uno de los siguientes:</li>
+<li>Permiten representar algunos caracteres que no son US-ASCII dentro
+de un documento HTML</li>
+<li>El carácter ‘Ã’ se puede representar como uno de los
+siguientes:</li>
 </ul>
 <pre><code>  &amp;#195;
   &amp;#xC3;
@@ -179,8 +209,11 @@
 <section id="ejemplos" class="slide level2">
 <h2>Ejemplos</h2>
 <ul>
-<li>El carácter ‘a’ (LATIN SMALL LETTER A, U+0061) en US-ASCII es 01100001 (61 en hexadecimal, x61), igual que en ISO/IEC 8859 y que en UTF-8; en UTF-16 es 11111110 11111111 00000000 01100001 (xFEFF0061)</li>
-<li>El carácter ‘á’ (LATIN SMALL LETTER A WITH ACUTE, U+00E1) se representa en ISO/IEC 8859-15 como xE1 y en UTF-8 como xC3A1</li>
+<li>El carácter ‘a’ (LATIN SMALL LETTER A, U+0061) en US-ASCII es
+01100001 (61 en hexadecimal, x61), igual que en ISO/IEC 8859 y que en
+UTF-8; en UTF-16 es 11111110 11111111 00000000 01100001 (xFEFF0061)</li>
+<li>El carácter ‘á’ (LATIN SMALL LETTER A WITH ACUTE, U+00E1) se
+representa en ISO/IEC 8859-15 como xE1 y en UTF-8 como xC3A1</li>
 </ul>
 </section>
 <section id="ejemplos-1" class="slide level2">
@@ -193,14 +226,20 @@
 <section id="problema" class="slide level2">
 <h2>Problema</h2>
 <ul>
-<li>Teniendo en cuenta los datos de las diapositivas anteriores, ¿cómo se ve un fichero de texto escrito en UTF-8 que contiene <em>guaraná</em> en un editor de texto configurado para ISO/IEC 8859-15?</li>
-<li>¿Cómo se ve un fichero de texto escrito en ISO/IEC 8859-1 que contiene <em>guaraná</em> en un editor de texto configurado para UTF-8?</li>
+<li>Teniendo en cuenta los datos de las diapositivas anteriores, ¿cómo
+se ve un fichero de texto escrito en UTF-8 que contiene <em>guaraná</em>
+en un editor de texto configurado para ISO/IEC 8859-15?</li>
+<li>¿Cómo se ve un fichero de texto escrito en ISO/IEC 8859-1 que
+contiene <em>guaraná</em> en un editor de texto configurado para
+UTF-8?</li>
 </ul>
 </section>
 <section id="utf-8-en-páginas-web" class="slide level2">
 <h2>UTF-8 en páginas web</h2>
 <ul>
-<li>Configurar el servidor para que informe al cliente de que la codificación es UTF-8: añadir a la petición y a la respuesta la cabecera HTTP:</li>
+<li>Configurar el servidor para que informe al cliente de que la
+codificación es UTF-8: añadir a la petición y a la respuesta la cabecera
+HTTP:</li>
 </ul>
 <pre><code>  Content-Type: text/html; charset=utf-8</code></pre>
 <ul>
@@ -213,33 +252,177 @@
 <section id="precacuciones" class="slide level2">
 <h2>Precacuciones</h2>
 <ul>
-<li>En JavaScript, que usa UTF-16, “🤦🏻‍♂️”.length == 7 (<em>man facepalming: light skin tone</em>); el número de bytes en memoria es 14</li>
-<li>La cadena contiene 5 valores de Unicode (<a href="https://hsivonen.fi/string-length/">explicación</a>): persona palmeándose la cara, color de piel, ligadura de códigos, hombre, no monocromo</li>
-<li>En otros lenguajes la longitud puede ser diferente, pero pocos lenguajes dan 1 como longitud</li>
+<li>En JavaScript, que usa UTF-16, “🤦🏻‍♂️”.length == 7 (<em>man
+facepalming: light skin tone</em>); el número de bytes en memoria es
+14</li>
+<li>La cadena contiene 5 valores de Unicode (<a
+href="https://hsivonen.fi/string-length/">explicación</a>): persona
+palmeándose la cara, color de piel, ligadura de códigos, hombre, no
+monocromo</li>
+<li>En otros lenguajes la longitud puede ser diferente, pero pocos
+lenguajes dan 1 como longitud</li>
 </ul>
 </section>
     </div>
   </div>
 
-  <script src="https://unpkg.com/reveal.js@3.9.2//js/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@3.9.2//plugin/zoom/zoom.js"></script>
 
   <script>
 
       // Full list of configuration options available at:
-      // https://github.com/hakimel/reveal.js#configuration
+      // https://revealjs.com/config/
       Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: {37:'prev',38:'prev',39:'next',40:'next'},
-        // Transition style
-        transition: 'linear', // none/fade/slide/convex/concave/zoom
 
-        // Optional reveal.js plugins
-        dependencies: [
-          { src: 'https://unpkg.com/reveal.js@3.9.2//lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: 'https://unpkg.com/reveal.js@3.9.2//plugin/zoom-js/zoom.js', async: true },
-          { src: 'https://unpkg.com/reveal.js@3.9.2//plugin/notes/notes.js', async: true }
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'linear',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
         ]
       });
     </script>
