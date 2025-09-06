@@ -80,9 +80,9 @@
 
 ## Profesional en Tecnologías de la Información
 
-- Explain and apply appropriate information technologies and employ appropriate methodologies to help an individual or organization achieve its goals and objectives;
-- Function as a user advocate;
-- Manage the information technology resources of an individual or organization;
+- Explain and apply appropriate information technologies and employ appropriate methodologies to help an individual or organization achieve its goals and objectives.
+- Function as a user advocate.
+- Manage the information technology resources of an individual or organization.
 
 ## Profesional en Tecnologías de la Información
 
