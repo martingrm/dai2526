@@ -56,6 +56,7 @@ jobs:
               --slide-level=2 \
               -V theme="simple" \
               -V transition="linear" \
+              -V revealjs-url=./reveal.js
               -V keyboard="{37:'prev',38:'prev',39:'next',40:'next'}" \
               --output="$out" \
               "$f"
