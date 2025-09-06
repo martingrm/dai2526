@@ -35,7 +35,7 @@
 
 - Desarrollo individual e incremental de una aplicación web
 - Asistencia obligatoria, pero se admite un máximo de 4 faltas sin justificar
-- Fechas aproximadas de entrega: 3 octubre, 31 octubre, 21 noviembre, 19 diciembre
+- Fechas aproximadas de entrega: 2 octubre, 30 octubre, 20 noviembre, 18 diciembre
 - Peso: 40% de la nota final (sin nota mínima)
 
 ## Plagios
