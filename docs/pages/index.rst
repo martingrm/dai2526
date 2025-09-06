@@ -134,7 +134,7 @@ Actividades previas a las clases
 Guía docente y normas del curso
 -------------------------------
 
-Estos son los materiales de clase de la asignatura Desarrollo de Aplicaciones en Internet, coordinada por el profesor `Juan Antonio Pérez Ortiz`_ (`@japer3z`_) de la Universitat d'Alacant e impartida por el profesor `Martín García-Ripoll Muñoz`_. Para obtener información sobre la evaluación de la asignatura puedes consultar la `guía docente`_. Algunos aspectos adicionales que no están recogidos en la guía son los siguientes:
+Estos son los materiales de clase de la asignatura Desarrollo de Aplicaciones en Internet, impartida por el profesor `Martín García-Ripoll Muñoz`_ y coordinada por el profesor `Juan Antonio Pérez Ortiz`_ (`@japer3z`_) de la Universitat d'Alacant. Para obtener información sobre la evaluación de la asignatura puedes consultar la `guía docente`_. Algunos aspectos adicionales que no están recogidos en la guía son los siguientes:
 
 .. _`Juan Antonio Pérez Ortiz`: https://www.dlsi.ua.es/~japerez/
 .. _`Martín García-Ripoll Muñoz`: https://www.dlsi.ua.es/eines/membre.cgi?id=eng&nom=martin.garcia

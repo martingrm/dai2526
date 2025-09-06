@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Desarrollo de Aplicaciones en Internet'
-copyright = '2022-2023, Juan Antonio Pérez'
-author = 'Juan Antonio Pérez'
+copyright = '2015-2026, Juan Antonio Pérez y Martín García Ripoll'
+author = 'Juan Antonio Pérez y Martín García Ripoll'
 
 
 # -- General configuration ---------------------------------------------------
