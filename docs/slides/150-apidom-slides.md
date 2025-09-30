@@ -109,7 +109,7 @@ divElement.className = "";  // borra todas las clases
 ~~~
 <!doctype html>
 <html><head><title>simple style example</title>
-<script type="text/javascript">
+<script>
   function alterStyle(elem) {
     elem.style.backgroundColor = "green";   // los guiones se eliminan en el nombre del atributo
   }
