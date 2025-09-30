@@ -58,7 +58,7 @@ En esta práctica vas a crear un documento HTML5 en el que *todo* el formato rec
 
 .. code-block:: html
 
-    <script type="text/javascript">
+    <script>
       function changeCSS(cssFile) {
         var oldlink = document.getElementById("estilo");
         var newlink = document.createElement("link")
