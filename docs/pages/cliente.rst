@@ -72,7 +72,7 @@ Elementos más avanzados del lenguaje o las características adicionales a las q
   .. code-block:: javascript
     :linenos:
 
-    var frutas = ['papaya', 'banana', 'watermelon'];
+    const frutas = ['papaya', 'banana', 'watermelon'];
 
     function log (mensaje) {
       console.log(duplica(mensaje));  
@@ -238,8 +238,8 @@ Ten en cuenta que las funciones de *callback* se ejecutan en el (único) hilo de
 
     function prnt() {console.log("parent clicked");}
     function child() {console.log("child clicked");}
-    var p = document.getElementById("prnt");
-    var c = document.getElementById("child");
+    const p = document.getElementById("prnt");
+    const c = document.getElementById("child");
     p.addEventListener("click",prnt,true);
     c.addEventListener("click",child,true);
 
@@ -266,8 +266,8 @@ Ten en cuenta que las funciones de *callback* se ejecutan en el (único) hilo de
   .. code-block:: javascript
     :linenos:
 
-    var lista = document.querySelector('#x');
-    var item = lista.querySelector('li');
+    const lista = document.querySelector('#x');
+    const item = lista.querySelector('li');
     console.log(item.parentNode.id);  // imprime x
     lista.innerHTML += '<li lang="en">blue</li>';
     console.log(item.parentNode.id);  // excepción
@@ -474,7 +474,7 @@ Pero, al no pertenecer al prototipo, la función ``camina`` solo existe para el 
       });
     document.querySelector("#x").addEventListener("click",
       function () {
-        var this2= this;
+        const this2= this;
         setTimeout(function () {
           console.log(this2.parentNode.id)
         }, 2000);
@@ -629,7 +629,7 @@ En JavaScript es habitual definir una función dentro de otra de forma que la fu
   :linenos:
 
   function creaLista() {
-    var list = document.querySelector("#list");
+    const list = document.querySelector("#list");
     for (let i = 1; i <= 5; i++) {
       let item = document.createElement("li");
       item.appendChild(document.createTextNode("Elemento " + i));
@@ -734,7 +734,7 @@ Sin embargo, si usamos ``let`` en lugar de ``var`` en las declaraciones de ``i``
       return funcs;
     }
 
-    var m= f();
+    const m = f();
     for (var j = 0; j < 3; j++) {
       m[j]();   // Aquí otro diferente
     }

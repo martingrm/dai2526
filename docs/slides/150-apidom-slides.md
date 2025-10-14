@@ -42,13 +42,13 @@ Fuente: [Web API reference](https://developer.mozilla.org/es/docs/Web/API)
 - *querySelectorAll* devuelve una lista *no viva* (es decir, la lista no se actualiza dinámicamente) de elementos
 
 ~~~
-var el = document.querySelector(".miClase");
+const el = document.querySelector(".miClase");
 ~~~
 
 ~~~
-var images = document.querySelectorAll("img.pictures, img.charts");
+const images = document.querySelectorAll("img.pictures, img.charts");
 
-for (var i = 0; i < images.length; i++) {
+for (let i = 0; i < images.length; i++) {
     console.log(images[i].getAttribute("src"));
 }
 ~~~
@@ -73,17 +73,17 @@ document.getElementById("settingsForm").getElementsByTagName("table")[0]
 - Modificación del contenido textual de un elemento:
 
 ~~~
-var title = document.querySelector("#intro");
+const title = document.querySelector("#intro");
 title.textContent = "Ulises";
 ~~~
 
 ## Consulta y modificación de atributos
 
 ~~~
-var title = document.querySelector("#picture");
+const title = document.querySelector("#picture");
 title.setAttribute("src", "http://www.example.com");
-var t = title.getAttribute("alt");
-var i = title.id;             // para id y class no es necesario usar los métodos anteriores
+const t = title.getAttribute("alt");
+const i = title.id;             // para id y class no es necesario usar los métodos anteriores
 title.className = "bar foo";  // el id y la clase se exponen como atributos de un elemento
 ~~~
 
@@ -92,7 +92,7 @@ title.className = "bar foo";  // el id y la clase se exponen como atributos de u
 - Una manera mejor que *className* de gestionar las clases de un elemento.
 
 ~~~
-var divElement = document.querySelector("#myDiv");
+const divElement = document.querySelector("#myDiv");
 divElement.classList.add("bar");
 divElement.classList.remove("foo");
 divElement.classList.toggle("foo");
@@ -133,13 +133,13 @@ divElement.className = "";  // borra todas las clases
 - Para modificar los estilos de múltiples elementos, se puede inyectar desde JavaScript elementos de tipo *style* o añadir reglas a una hoja existente.
 
 ~~~
-var e = document.createElement("style");
+const e = document.createElement("style");
 e.innerHTML= "p {color: red;}"
 document.head.appendChild(e);
 ~~~
 
 ~~~
-var e= document.querySelector('link[href="normal.css"]')
+const e = document.querySelector('link[href="normal.css"]')
 e.sheet.insertRule("p { background-color: blue}");  // otra manera
 ~~~
 
@@ -150,7 +150,7 @@ e.sheet.insertRule("p { background-color: blue}");  // otra manera
 ## Recorrer el DOM
 
 ~~~
-var bodyElement = document.body;
+const bodyElement = document.body;
 
 if (bodyElement.firstChild) {
     ...
@@ -158,10 +158,10 @@ if (bodyElement.firstChild) {
 ~~~
 
 ~~~
-var bodyElement = document.body;
+const bodyElement = document.body;
 
-for (var i = 0; i < bodyElement.children.length; i++) {
-    var childElement = bodyElement.children[i];
+for (let i = 0; i < bodyElement.children.length; i++) {
+    const childElement = bodyElement.children[i];
     console.log(childElement.tagName);
 }
 ~~~
@@ -191,7 +191,7 @@ function theDOMElementWalker(node) {
   <h1 id="theTitle" class="highlight summer">What's happening?</h1>
 
   <script>
-    var newElement = document.createElement("p");
+    const newElement = document.createElement("p");
     newElement.textContent = "I exist entirely in your imagination.";
     document.body.appendChild(newElement);
   </script>
@@ -212,9 +212,9 @@ function theDOMElementWalker(node) {
 <body>
   <h1 id="theTitle" class="highlight summer">What's happening?</h1>
   <script>
-    var newElement = document.createElement("p");
+    const newElement = document.createElement("p");
     newElement.textContent = "I exist entirely in your imagination.";
-    var scriptElement = document.querySelector("script");
+    const scriptElement = document.querySelector("script");
     document.body.insertBefore(newElement, scriptElement);
 
     document.body.removeChild(newElement);  // borrado del elemento
@@ -256,9 +256,9 @@ function hide(e){
   e.currentTarget.style.visibility = "hidden";
 }
 
-var ps = document.getElementsByTagName('p');
+const ps = document.getElementsByTagName('p');
 
-for(var i = 0; i < ps.length; i++){
+for(let i = 0; i < ps.length; i++){
   ps[i].addEventListener('click', hide, false);
 }
 
@@ -310,10 +310,10 @@ div {border: 1px solid black; padding: 20px; margin: 10px;}
     </div>
 
     <script>
-        var items = document.querySelectorAll(".item");
+        const items = document.querySelectorAll(".item");
 
-        for (var i = 0; i < items.length; i++) {
-            var el = items[i];
+        for (let i = 0; i < items.length; i++) {
+            const el = items[i];
 
             //capturing phase
             el.addEventListener("click", doSomething, true);

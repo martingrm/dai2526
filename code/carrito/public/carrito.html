@@ -86,7 +86,7 @@
   // Endpoint de la API del carrito:
   const base="/carrito/v1";
   
-  var carrito= "";
+  let carrito= "";
   const cabeceras= {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -150,7 +150,7 @@
       const e= document.querySelector('#listado');
       e.innerHTML= '';
       if (r.result) {
-        for(var i=0;i<r.result.length;i++) {
+        for(let i=0;i<r.result.length;i++) {
           e.innerHTML+= `<tr>
             <td>${r.result[i].item}</td>
             <td>${r.result[i].cantidad}</td>
@@ -215,7 +215,7 @@
     const item= document.querySelector("#f4 input[name='item']").value;
     const url= `${base}/${carrito}/productos/${item}`;
     const payload= {}; 
-    var request = {
+    const request = {
       method: 'DELETE', 
       headers: cabeceras,
       body: JSON.stringify(payload),
@@ -235,7 +235,7 @@
     event.preventDefault();
     const url= `${base}/${carrito}`;
     const payload= {};
-    var request = {
+    const request = {
       method: 'DELETE', 
       headers: cabeceras,
       body: JSON.stringify(payload),

@@ -53,7 +53,7 @@
         { theme: "outline", size: "large" }  
       );
       google.accounts.id.prompt(); // also display the One Tap dialog
-      var button = document.getElementById('signout_button');
+      const button = document.getElementById('signout_button');
       button.addEventListener("click", () => {
         google.accounts.id.disableAutoSelect();
         console.log("Sign out button clicked.");

@@ -178,19 +178,19 @@ x = x + 5
 - La evaluación en cortocircuito (presente en otros muchos lenguajes) es útil para comprobar si un objeto es *null* antes de acceder a sus miembros o para dar valores por defecto.
 
 ~~~
-var name = o && o.getName();
-var name = otherName || "default";
+const name = o && o.getName();
+const name = otherName || "default";
 ~~~
 
 ~~~
-var allowed = (age > 18) ? "yes" : "no";
+const allowed = (age > 18) ? "yes" : "no";
 ~~~
 
 
 ## Estructuras de control
 
 ~~~
-var name = "kittens";
+let name = "kittens";
 if (name == "puppies") {
   name += "!";
 } else if (name == "kittens") {
@@ -213,7 +213,7 @@ do {
   input = get_input();
 } while (inputIsNotValid(input))
 
-for (var i = 0; i < 5; i++) {
+for (let i = 0; i < 5; i++) {
   // Will execute 5 times
 }
 ~~~
@@ -242,8 +242,8 @@ switch(a + 3) {
 - Dos formas equivalentes de crear objetos. La segunda es la preferida: sintaxis de objetos literales usada en JSON.
 
 ~~~
-var obj = new Object();
-var obj = {};
+const obj = new Object();
+const obj = {};
 ~~~
 
 ## Objetos
@@ -251,7 +251,7 @@ var obj = {};
 - Sintaxis de objetos literales para objetos más complejos.
 
 ~~~
-var obj = {
+const obj = {
   name: "Carrot",
   "for": "Max",
   details: {
@@ -261,7 +261,7 @@ var obj = {
 }
 
 obj.details.color; // orange
-var prop= "size"
+const prop= "size"
 obj["details"][prop]; // 12
 ~~~
 
@@ -274,16 +274,16 @@ function Person(name, age) {
 }
 
 // Define una instancia del prototipo:
-var You = new Person("You", 24);
+const You = new Person("You", 24);
 ~~~
 
 ~~~
 obj.name = "Simon";
-var name = obj.name;    // esta forma suele ser más eficiente
+const name = obj.name;    // esta forma suele ser más eficiente
 
 prop= "name";  // el valor de prop se puede leer de un fichero o un formulario
 obj[prop] = "Simon";
-var name = obj[prop]; // esta permite obtener nombres de propiedades durante la ejecución
+const name = obj[prop]; // esta permite obtener nombres de propiedades durante la ejecución
 ~~~
 
 ## Arrays
@@ -304,7 +304,7 @@ a.length; // 3
 - Una notación más conveniente es la de literales de arrays:
 
 ~~~
-var a = ["dog", "cat", "hen"];
+const a = ["dog", "cat", "hen"];
 a.push("monkey");
 a.length; // 4
 ~~~
@@ -332,7 +332,7 @@ a.length;        // 101
 
 ~~~
 function add(x, y) {
-  var total = x + y;
+  const total = x + y;
   return total;
 }
 ~~~
@@ -358,8 +358,8 @@ add(2, 3, 4); // 5
 
 ~~~
 function avg() {
-  var sum = 0;
-  for (var i = 0, j = arguments.length; i < j; i++) {
+  let sum = 0;
+  for (let i = 0, j = arguments.length; i < j; i++) {
     sum += arguments[i];
   }
   return sum / arguments.length;
@@ -371,14 +371,14 @@ avg(2, 3, 4, 5); // 3.5
 ## Funciones anónimas
 
 ~~~
-var avg = function() {
-  var sum = 0;
-  for (var i = 0, j = arguments.length; i < j; i++) {
+const avg = function() {
+  let sum = 0;
+  for (let i = 0, j = arguments.length; i < j; i++) {
     sum += arguments[i];
   }
   return sum / arguments.length;
 };
-var g=avg;
+const g=avg;
 
 g(2, 3, 4, 5);
 ~~~
@@ -413,7 +413,7 @@ function Person(first, last) {
     return this.last + ', ' + this.first;
   };
 }
-var s = new Person("Simon", "Willison");
+const s = new Person("Simon", "Willison");
 ~~~
 
 ## Objetos personalizados
@@ -471,10 +471,10 @@ function Person(first, last) {
 Person.prototype.fullName = function() {
   return this.first + ' ' + this.last;
 };
-var s= new Person("Simon","Willison");
+const s= new Person("Simon","Willison");
 s.__proto__ === Person.prototype;  // true
 s.age= 32;  // propiedad explícita que no usa el prototipo
-var t= s.fullName() + ", " + s.age;  // "Simon Willison, 32"
+const t= s.fullName() + ", " + s.age;  // "Simon Willison, 32"
 ~~~
 
 ## Objetos personalizados
@@ -496,12 +496,12 @@ s.firstNameCaps(); // "SIMON"
 - Se pueden añadir cosas al prototipo de los objetos predefinidos de JavaScript:
 
 ~~~
-var s = "Simon";
+const s = "Simon";
 s.reversed(); // TypeError on line 1: s.reversed is not a function
 
 String.prototype.reversed = function reversed() {
-  var r = "";
-  for (var i = this.length - 1; i >= 0; i--) {
+  let r = "";
+  for (let i = this.length - 1; i >= 0; i--) {
     r += this[i];
   }
   return r;
@@ -584,7 +584,7 @@ class Manager extends Employee {
 
 ~~~
 function betterExampleNeeded() {
-  var a = 1;
+  const a = 1;
   function oneMoreThanA() {
     return a + 1;
   }
@@ -603,8 +603,8 @@ function makeAdder(a) {
     return a + b;
   };
 }
-var x = makeAdder(5);
-var y = makeAdder(20);
+const x = makeAdder(5);
+const y = makeAdder(20);
 x(6); // 11
 y(7); // 27
 ~~~
@@ -616,7 +616,7 @@ y(7); // 27
 ~~~
  function f () {
    var funcs = [];
-   for (var i = 0; i < 3; i++) {
+   for (let i = 0; i < 3; i++) {
      funcs[i] = function() {
        console.log("My value: " + i);
      };
@@ -625,8 +625,8 @@ y(7); // 27
    return funcs;
  }
 
- var m= f();
- for (var j = 0; j < 3; j++) {
+ const m = f();
+ for (let j = 0; j < 3; j++) {
    m[j]();   // Aquí otro diferente
  }
 ~~~
@@ -643,14 +643,14 @@ y(7); // 27
   function f () {
     var funcs = [];
 
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       funcs[i] = createfunc(i);
     }
     return funcs;
   }
 
-  var m= f();
-  for (var j = 0; j < 3; j++) {
+  const m = f();
+  for (let j = 0; j < 3; j++) {
     m[j]();
   }
 ~~~
@@ -671,8 +671,8 @@ y(7); // 27
    return funcs;
  }
 
- var m= f();
- for (var j = 0; j < 3; j++) {
+ const m = f();
+ for (let j = 0; j < 3; j++) {
    m[j]();   // 0, 1, 2
  }
 ~~~
@@ -682,7 +682,7 @@ y(7); // 27
 - Otro ejemplo (muy habitual) de uso de *let*:
 
 ~~~
-var list = document.getElementById("list");
+const list = document.getElementById("list");
 
 for (let i = 1; i <= 5; i++) {
   let item = document.createElement("li");

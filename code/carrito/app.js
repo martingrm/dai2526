@@ -114,7 +114,7 @@ app.use( async (req, res, next) => {
 // crea un carrito:
 app.post(config.app.base+'/creacarrito', async (req,res) => {
   try {
-    let n= await numeroCarritos();
+    const n= await numeroCarritos();
     if (n>=config.app.maxCarritos) {
       res.status(404).send({ result:null,error:'No caben más carritos; contacta con el administrador' });
       return;
@@ -124,7 +124,7 @@ app.post(config.app.base+'/creacarrito', async (req,res) => {
       var nuevo = Math.random().toString(36).substring(7);
       existe= await existeCarrito(nuevo);
     }
-    var c= { nombre:nuevo };
+    const c= { nombre:nuevo };
     await knex('carritos').insert(c);
     res.status(200).send({ result:{ nombre:nuevo },error:null });
   } catch (error) {
@@ -156,7 +156,7 @@ app.post(config.app.base+'/:carrito/productos', async (req, res) => {
       res.status(404).send({ result:null,error:`No caben más productos en el carrito ${req.params.carrito}` });
       return;
     }
-    var i= { carrito:req.params.carrito,item:req.body.item,cantidad:req.body.cantidad };
+    const i= { carrito:req.params.carrito,item:req.body.item,cantidad:req.body.cantidad };
     await knex('productos').insert(i);
     res.status(200).send({ result:'ok',error:null });
   } catch (error) {

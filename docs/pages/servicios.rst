@@ -449,16 +449,16 @@ El siguiente es un ejemplo típico de uso de un objeto de tipo ``XMLHttpRequest`
   :force:
 
   // Los datos del servidor se insertarán en el elemento con id 'results':
-  var resultado= document.querySelector("#results");
+  const resultado = document.querySelector("#results");
 
   // Borra el contenido previo del elemento:
   resultado.textContent= "";
 
   // Crea el objeto XHR:
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   console.log(xhr.readyState);
 
-  var url= "https://ghibli.rest/films";
+  const url= "https://ghibli.rest/films";
   // otro endpoint: https://ghibliapi.vercel.app/films/
   // Identifica el verbo, la URL y que la petición será asíncrona:
   xhr.open("GET", url, true);
@@ -482,13 +482,13 @@ El siguiente es un ejemplo típico de uso de un objeto de tipo ``XMLHttpRequest`
         // JSON.parse analiza la cadena pasada como argumento y la convierte
         // a un objeto de JavaScript; la respuesta de esta petición es un array
         // que se almacena en r:
-        var r= JSON.parse(xhr.responseText);
+        const r = JSON.parse(xhr.responseText);
 
         // Los datos devueltos están en formato JSON y son de la forma 
         // [ {"id":"dc2e","title":"Spirited Away","original_title":"千と千尋の神隠し",
         //    "description":"Spirited Away is a film about a ten year old girl...",...}, 
         //   {...},  {...} ] 
-        for (var i=0; i<r.length;i++) {
+        for (let i=0; i<r.length;i++) {
           resultado.textContent+= r[i].title+"; ";
         }
       }
@@ -509,7 +509,7 @@ Este código accede a modo de ejemplo a una `API web`_ sobre las películas del 
     :linenos:
     :force:
 
-    var x = { a: 12, 'b': 14, "c": 16, };
+    const x = { a: 12, 'b': 14, "c": 16, };
 
 
 Como ves en el código anterior, la función ``JSON.parse`` permite convertir una cadena en formato a JSON a objeto de JavaScript; para lo opuesto, puede usarse la función ``JSON.stringify``. En APIs web más antiguas se usaba el formato XML en lugar de JSON, de ahí el nombre de ``XMLHttpRequest``.
@@ -536,8 +536,8 @@ En los últimos años, sin embargo, los navegadores han comenzado a implementar 
 .. code-block:: javascript
   :linenos:
 
-  var resultado= document.querySelector("#results");
-  resultado.textContent= "";
+  const resultado = document.querySelector("#results");
+  resultado.textContent = "";
   fetch('https://ghibli.rest/films')
   .then(function(response) {
     if (!response.ok) {
@@ -546,7 +546,7 @@ En los últimos años, sin embargo, los navegadores han comenzado a implementar 
     return response.json();  
   })
   .then(function(responseAsObject) {
-    for (var i=0; i<responseAsObject.length;i++) {
+    for (let i=0; i<responseAsObject.length;i++) {
       resultado.textContent+= responseAsObject[i].title+"; ";
     }
   })
@@ -571,9 +571,9 @@ También debería ser fácil de entender el siguiente código, que añade un pas
   :linenos:
 
   function minusculas(r) {
-    var promise= new Promise(function(resolve, reject) {
+    const promise= new Promise(function(resolve, reject) {
       if (r.length>0) {
-        for (var i=0; i<r.length;i++) {
+        for (let i=0; i<r.length;i++) {
           r[i].title= r[i].title.toLowerCase();
         }
         resolve(r);
@@ -585,8 +585,8 @@ También debería ser fácil de entender el siguiente código, que añade un pas
     return promise;
   }
 
-  var resultado= document.querySelector("#results");
-  resultado.textContent= "";
+  const resultado = document.querySelector("#results");
+  resultado.textContent = "";
   fetch('https://ghibli.rest/films')
   .then(function(response) {
     if (!response.ok) {
@@ -596,7 +596,7 @@ También debería ser fácil de entender el siguiente código, que añade un pas
   })
   .then(minusculas)
   .then(function(responseAsObject) {
-    for (var i=0; i<responseAsObject.length;i++) {
+    for (let i=0; i<responseAsObject.length;i++) {
           resultado.textContent+= responseAsObject[i].title+"; ";
   }
   })

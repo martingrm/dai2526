@@ -97,8 +97,8 @@ Desarrollo de Aplicaciones en Internet
 - Ejemplos en Java:
 
 ~~~
-  var Omega = 'Ω';
-  var Omega = '\u03A9';  // compatible con cualquier entorno
+  const Omega = 'Ω';
+  const Omega = '\u03A9';  // compatible con cualquier entorno
 
   public static void m (void) {
     int ဆဆဆ = 100;  // caracteres en birmano
