@@ -60,8 +60,8 @@ En esta práctica vas a crear un documento HTML5 en el que *todo* el formato rec
 
     <script>
       function changeCSS(cssFile) {
-        var oldlink = document.getElementById("estilo");
-        var newlink = document.createElement("link")
+        const oldlink = document.getElementById("estilo");
+        const newlink = document.createElement("link")
         newlink.setAttribute("rel", "stylesheet");
         newlink.setAttribute("type", "text/css");
         newlink.setAttribute("id", "estilo");
@@ -298,11 +298,11 @@ La siguiente es una posible implementación de la función que puedes copiar en 
 .. code-block:: javascript
 
   function queryAncestorSelector (node,selector) {
-    var parent= node.parentNode;
-    var all = document.querySelectorAll(selector);
-    var found= false;
+    let parent = node.parentNode;
+    const all = document.querySelectorAll(selector);
+    let found = false;
     while (parent !== document && !found) {
-      for (var i = 0; i < all.length && !found; i++) {
+      for (let i = 0; i < all.length && !found; i++) {
         found= (all[i] === parent)?true:false;
       }
       parent= (!found)?parent.parentNode:parent;
@@ -554,7 +554,7 @@ funcione en ``index.html``. Cuando lo consigas, sustituye el encabezado de los c
   :force:
 
   connectedCallback() {
-    var componente= this;  // aquí this apunta al shadow host del componente web
+    const componente = this;  // aquí this apunta al shadow host del componente web
     fetch(...)
     .then(...)
     .then(function () {

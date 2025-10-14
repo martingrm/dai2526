@@ -106,10 +106,10 @@ selector</li>
 <li><em>querySelectorAll</em> devuelve una lista <em>no viva</em> (es
 decir, la lista no se actualiza dinámicamente) de elementos</li>
 </ul>
-<pre><code>var el = document.querySelector(&quot;.miClase&quot;);</code></pre>
-<pre><code>var images = document.querySelectorAll(&quot;img.pictures, img.charts&quot;);
+<pre><code>const el = document.querySelector(&quot;.miClase&quot;);</code></pre>
+<pre><code>const images = document.querySelectorAll(&quot;img.pictures, img.charts&quot;);
 
-for (var i = 0; i &lt; images.length; i++) {
+for (let i = 0; i &lt; images.length; i++) {
     console.log(images[i].getAttribute(&quot;src&quot;));
 }</code></pre>
 </section>
@@ -130,15 +130,15 @@ forma (estandarizada más recientemente) es mucho más compacta:</li>
 <ul>
 <li>Modificación del contenido textual de un elemento:</li>
 </ul>
-<pre><code>var title = document.querySelector(&quot;#intro&quot;);
+<pre><code>const title = document.querySelector(&quot;#intro&quot;);
 title.textContent = &quot;Ulises&quot;;</code></pre>
 </section>
 <section id="consulta-y-modificación-de-atributos" class="slide level2">
 <h2>Consulta y modificación de atributos</h2>
-<pre><code>var title = document.querySelector(&quot;#picture&quot;);
+<pre><code>const title = document.querySelector(&quot;#picture&quot;);
 title.setAttribute(&quot;src&quot;, &quot;http://www.example.com&quot;);
-var t = title.getAttribute(&quot;alt&quot;);
-var i = title.id;             // para id y class no es necesario usar los métodos anteriores
+const t = title.getAttribute(&quot;alt&quot;);
+const i = title.id;             // para id y class no es necesario usar los métodos anteriores
 title.className = &quot;bar foo&quot;;  // el id y la clase se exponen como atributos de un elemento</code></pre>
 </section>
 <section id="consulta-y-modificación-de-clases" class="slide level2">
@@ -147,7 +147,7 @@ title.className = &quot;bar foo&quot;;  // el id y la clase se exponen como atri
 <li>Una manera mejor que <em>className</em> de gestionar las clases de
 un elemento.</li>
 </ul>
-<pre><code>var divElement = document.querySelector(&quot;#myDiv&quot;);
+<pre><code>const divElement = document.querySelector(&quot;#myDiv&quot;);
 divElement.classList.add(&quot;bar&quot;);
 divElement.classList.remove(&quot;foo&quot;);
 divElement.classList.toggle(&quot;foo&quot;);
@@ -189,10 +189,10 @@ elemento (con el atributo <em>style</em>) o mediante
 desde JavaScript elementos de tipo <em>style</em> o añadir reglas a una
 hoja existente.</li>
 </ul>
-<pre><code>var e = document.createElement(&quot;style&quot;);
+<pre><code>const e = document.createElement(&quot;style&quot;);
 e.innerHTML= &quot;p {color: red;}&quot;
 document.head.appendChild(e);</code></pre>
-<pre><code>var e= document.querySelector(&#39;link[href=&quot;normal.css&quot;]&#39;)
+<pre><code>const e = document.querySelector(&#39;link[href=&quot;normal.css&quot;]&#39;)
 e.sheet.insertRule(&quot;p { background-color: blue}&quot;);  // otra manera</code></pre>
 </section>
 <section id="forma-recomendada-de-cambiar-estilos" class="slide level2">
@@ -204,15 +204,15 @@ atributo <em>class</em> para afectar a los estilos de un elemento.</li>
 </section>
 <section id="recorrer-el-dom" class="slide level2">
 <h2>Recorrer el DOM</h2>
-<pre><code>var bodyElement = document.body;
+<pre><code>const bodyElement = document.body;
 
 if (bodyElement.firstChild) {
     ...
 }</code></pre>
-<pre><code>var bodyElement = document.body;
+<pre><code>const bodyElement = document.body;
 
-for (var i = 0; i &lt; bodyElement.children.length; i++) {
-    var childElement = bodyElement.children[i];
+for (let i = 0; i &lt; bodyElement.children.length; i++) {
+    const childElement = bodyElement.children[i];
     console.log(childElement.tagName);
 }</code></pre>
 <pre><code>function theDOMElementWalker(node) {
@@ -238,7 +238,7 @@ solo está definida para <em>document</em>.</li>
   &lt;h1 id=&quot;theTitle&quot; class=&quot;highlight summer&quot;&gt;What&#39;s happening?&lt;/h1&gt;
 
   &lt;script&gt;
-    var newElement = document.createElement(&quot;p&quot;);
+    const newElement = document.createElement(&quot;p&quot;);
     newElement.textContent = &quot;I exist entirely in your imagination.&quot;;
     document.body.appendChild(newElement);
   &lt;/script&gt;
@@ -264,9 +264,9 @@ hijo del padre.</li>
 <pre><code>&lt;body&gt;
   &lt;h1 id=&quot;theTitle&quot; class=&quot;highlight summer&quot;&gt;What&#39;s happening?&lt;/h1&gt;
   &lt;script&gt;
-    var newElement = document.createElement(&quot;p&quot;);
+    const newElement = document.createElement(&quot;p&quot;);
     newElement.textContent = &quot;I exist entirely in your imagination.&quot;;
-    var scriptElement = document.querySelector(&quot;script&quot;);
+    const scriptElement = document.querySelector(&quot;script&quot;);
     document.body.insertBefore(newElement, scriptElement);
 
     document.body.removeChild(newElement);  // borrado del elemento
@@ -312,9 +312,9 @@ ocurrido el evento.</li>
   e.currentTarget.style.visibility = &quot;hidden&quot;;
 }
 
-var ps = document.getElementsByTagName(&#39;p&#39;);
+const ps = document.getElementsByTagName(&#39;p&#39;);
 
-for(var i = 0; i &lt; ps.length; i++){
+for(let i = 0; i &lt; ps.length; i++){
   ps[i].addEventListener(&#39;click&#39;, hide, false);
 }
 
@@ -373,10 +373,10 @@ div {border: 1px solid black; padding: 20px; margin: 10px;}
     &lt;/div&gt;
 
     &lt;script&gt;
-        var items = document.querySelectorAll(&quot;.item&quot;);
+        const items = document.querySelectorAll(&quot;.item&quot;);
 
-        for (var i = 0; i &lt; items.length; i++) {
-            var el = items[i];
+        for (let i = 0; i &lt; items.length; i++) {
+            const el = items[i];
 
             //capturing phase
             el.addEventListener(&quot;click&quot;, doSomething, true);

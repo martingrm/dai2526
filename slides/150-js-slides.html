@@ -244,13 +244,13 @@ x = x + 5
 es útil para comprobar si un objeto es <em>null</em> antes de acceder a
 sus miembros o para dar valores por defecto.</li>
 </ul>
-<pre><code>var name = o &amp;&amp; o.getName();
-var name = otherName || &quot;default&quot;;</code></pre>
-<pre><code>var allowed = (age &gt; 18) ? &quot;yes&quot; : &quot;no&quot;;</code></pre>
+<pre><code>const name = o &amp;&amp; o.getName();
+const name = otherName || &quot;default&quot;;</code></pre>
+<pre><code>const allowed = (age &gt; 18) ? &quot;yes&quot; : &quot;no&quot;;</code></pre>
 </section>
 <section id="estructuras-de-control" class="slide level2">
 <h2>Estructuras de control</h2>
-<pre><code>var name = &quot;kittens&quot;;
+<pre><code>let name = &quot;kittens&quot;;
 if (name == &quot;puppies&quot;) {
   name += &quot;!&quot;;
 } else if (name == &quot;kittens&quot;) {
@@ -271,7 +271,7 @@ do {
   input = get_input();
 } while (inputIsNotValid(input))
 
-for (var i = 0; i &lt; 5; i++) {
+for (let i = 0; i &lt; 5; i++) {
   // Will execute 5 times
 }</code></pre>
 </section>
@@ -302,15 +302,15 @@ for (var i = 0; i &lt; 5; i++) {
 <li>Dos formas equivalentes de crear objetos. La segunda es la
 preferida: sintaxis de objetos literales usada en JSON.</li>
 </ul>
-<pre><code>var obj = new Object();
-var obj = {};</code></pre>
+<pre><code>const obj = new Object();
+const obj = {};</code></pre>
 </section>
 <section id="objetos-1" class="slide level2">
 <h2>Objetos</h2>
 <ul>
 <li>Sintaxis de objetos literales para objetos más complejos.</li>
 </ul>
-<pre><code>var obj = {
+<pre><code>const obj = {
   name: &quot;Carrot&quot;,
   &quot;for&quot;: &quot;Max&quot;,
   details: {
@@ -320,7 +320,7 @@ var obj = {};</code></pre>
 }
 
 obj.details.color; // orange
-var prop= &quot;size&quot;
+const prop= &quot;size&quot;
 obj[&quot;details&quot;][prop]; // 12</code></pre>
 </section>
 <section id="prototipos" class="slide level2">
@@ -331,13 +331,13 @@ obj[&quot;details&quot;][prop]; // 12</code></pre>
 }
 
 // Define una instancia del prototipo:
-var You = new Person(&quot;You&quot;, 24);</code></pre>
+const You = new Person(&quot;You&quot;, 24);</code></pre>
 <pre><code>obj.name = &quot;Simon&quot;;
-var name = obj.name;    // esta forma suele ser más eficiente
+const name = obj.name;    // esta forma suele ser más eficiente
 
 prop= &quot;name&quot;;  // el valor de prop se puede leer de un fichero o un formulario
 obj[prop] = &quot;Simon&quot;;
-var name = obj[prop]; // esta permite obtener nombres de propiedades durante la ejecución</code></pre>
+const name = obj[prop]; // esta permite obtener nombres de propiedades durante la ejecución</code></pre>
 </section>
 <section id="arrays" class="slide level2">
 <h2>Arrays</h2>
@@ -357,7 +357,7 @@ a.length; // 3</code></pre>
 <ul>
 <li>Una notación más conveniente es la de literales de arrays:</li>
 </ul>
-<pre><code>var a = [&quot;dog&quot;, &quot;cat&quot;, &quot;hen&quot;];
+<pre><code>const a = [&quot;dog&quot;, &quot;cat&quot;, &quot;hen&quot;];
 a.push(&quot;monkey&quot;);
 a.length; // 4</code></pre>
 <pre><code>var a = [&quot;dog&quot;, &quot;cat&quot;, &quot;hen&quot;];
@@ -383,7 +383,7 @@ a.length;        // 101</code></pre>
 <li>Las funciones son objetos.</li>
 </ul>
 <pre><code>function add(x, y) {
-  var total = x + y;
+  const total = x + y;
   return total;
 }</code></pre>
 </section>
@@ -406,8 +406,8 @@ a.length;        // 101</code></pre>
 variádicas:</li>
 </ul>
 <pre><code>function avg() {
-  var sum = 0;
-  for (var i = 0, j = arguments.length; i &lt; j; i++) {
+  let sum = 0;
+  for (let i = 0, j = arguments.length; i &lt; j; i++) {
     sum += arguments[i];
   }
   return sum / arguments.length;
@@ -417,14 +417,14 @@ avg(2, 3, 4, 5); // 3.5</code></pre>
 </section>
 <section id="funciones-anónimas" class="slide level2">
 <h2>Funciones anónimas</h2>
-<pre><code>var avg = function() {
-  var sum = 0;
-  for (var i = 0, j = arguments.length; i &lt; j; i++) {
+<pre><code>const avg = function() {
+  let sum = 0;
+  for (let i = 0, j = arguments.length; i &lt; j; i++) {
     sum += arguments[i];
   }
   return sum / arguments.length;
 };
-var g=avg;
+const g=avg;
 
 g(2, 3, 4, 5);</code></pre>
 </section>
@@ -457,7 +457,7 @@ b; // 2</code></pre>
     return this.last + &#39;, &#39; + this.first;
   };
 }
-var s = new Person(&quot;Simon&quot;, &quot;Willison&quot;);</code></pre>
+const s = new Person(&quot;Simon&quot;, &quot;Willison&quot;);</code></pre>
 </section>
 <section id="objetos-personalizados-1" class="slide level2">
 <h2>Objetos personalizados</h2>
@@ -522,10 +522,10 @@ asignación explícita, el intérprete la busca en
 Person.prototype.fullName = function() {
   return this.first + &#39; &#39; + this.last;
 };
-var s= new Person(&quot;Simon&quot;,&quot;Willison&quot;);
+const s= new Person(&quot;Simon&quot;,&quot;Willison&quot;);
 s.__proto__ === Person.prototype;  // true
 s.age= 32;  // propiedad explícita que no usa el prototipo
-var t= s.fullName() + &quot;, &quot; + s.age;  // &quot;Simon Willison, 32&quot;</code></pre>
+const t= s.fullName() + &quot;, &quot; + s.age;  // &quot;Simon Willison, 32&quot;</code></pre>
 </section>
 <section id="objetos-personalizados-5" class="slide level2">
 <h2>Objetos personalizados</h2>
@@ -548,12 +548,12 @@ s.firstNameCaps(); // &quot;SIMON&quot;</code></pre>
 <li>Se pueden añadir cosas al prototipo de los objetos predefinidos de
 JavaScript:</li>
 </ul>
-<pre><code>var s = &quot;Simon&quot;;
+<pre><code>const s = &quot;Simon&quot;;
 s.reversed(); // TypeError on line 1: s.reversed is not a function
 
 String.prototype.reversed = function reversed() {
-  var r = &quot;&quot;;
-  for (var i = this.length - 1; i &gt;= 0; i--) {
+  let r = &quot;&quot;;
+  for (let i = this.length - 1; i &gt;= 0; i--) {
     r += this[i];
   }
   return r;
@@ -632,7 +632,7 @@ class Manager extends Employee {
 función padre.</li>
 </ul>
 <pre><code>function betterExampleNeeded() {
-  var a = 1;
+  const a = 1;
   function oneMoreThanA() {
     return a + 1;
   }
@@ -652,8 +652,8 @@ y un entorno de la pila.</li>
     return a + b;
   };
 }
-var x = makeAdder(5);
-var y = makeAdder(20);
+const x = makeAdder(5);
+const y = makeAdder(20);
 x(6); // 11
 y(7); // 27</code></pre>
 </section>
@@ -665,7 +665,7 @@ cómo funcionan.</li>
 </ul>
 <pre><code> function f () {
    var funcs = [];
-   for (var i = 0; i &lt; 3; i++) {
+   for (let i = 0; i &lt; 3; i++) {
      funcs[i] = function() {
        console.log(&quot;My value: &quot; + i);
      };
@@ -674,8 +674,8 @@ cómo funcionan.</li>
    return funcs;
  }
 
- var m= f();
- for (var j = 0; j &lt; 3; j++) {
+ const m = f();
+ for (let j = 0; j &lt; 3; j++) {
    m[j]();   // Aquí otro diferente
  }</code></pre>
 </section>
@@ -691,14 +691,14 @@ cómo funcionan.</li>
   function f () {
     var funcs = [];
 
-    for (var i = 0; i &lt; 3; i++) {
+    for (let i = 0; i &lt; 3; i++) {
       funcs[i] = createfunc(i);
     }
     return funcs;
   }
 
-  var m= f();
-  for (var j = 0; j &lt; 3; j++) {
+  const m = f();
+  for (let j = 0; j &lt; 3; j++) {
     m[j]();
   }</code></pre>
 </section>
@@ -718,8 +718,8 @@ cómo funcionan.</li>
    return funcs;
  }
 
- var m= f();
- for (var j = 0; j &lt; 3; j++) {
+ const m = f();
+ for (let j = 0; j &lt; 3; j++) {
    m[j]();   // 0, 1, 2
  }</code></pre>
 </section>
@@ -728,7 +728,7 @@ cómo funcionan.</li>
 <ul>
 <li>Otro ejemplo (muy habitual) de uso de <em>let</em>:</li>
 </ul>
-<pre><code>var list = document.getElementById(&quot;list&quot;);
+<pre><code>const list = document.getElementById(&quot;list&quot;);
 
 for (let i = 1; i &lt;= 5; i++) {
   let item = document.createElement(&quot;li&quot;);

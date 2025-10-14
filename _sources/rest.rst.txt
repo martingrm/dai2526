@@ -134,7 +134,7 @@ Express es un *módulo* de Node.js que permite definir APIs de forma sencilla. L
 
     function createApplication() {
       ...
-      var app= ...
+      const app= ...
       app.init();
       return app;
     }
@@ -225,7 +225,7 @@ El código que vimos que accedía con Fetch a la API de películas del Studio Gh
         throw new Error(response.statusText);
       }
       let responseAsObject= await response.json();
-      for (var i=0; i<responseAsObject.length;i++) {
+      for (let i=0; i<responseAsObject.length;i++) {
         s+= responseAsObject[i].title+"; ";
       }
       return s;
@@ -236,7 +236,7 @@ El código que vimos que accedía con Fetch a la API de películas del Studio Gh
   }
 
   async function print() {
-    var resultado= document.querySelector("#results");
+    const resultado= document.querySelector("#results");
     resultado.textContent= await ghibli();
   }
 

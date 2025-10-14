@@ -593,7 +593,7 @@ El `código final`_ de nuestro componente web es el siguiente:
       }
     }
 
-    var p = new Polygon(10, 20);
+    const p = new Polygon(10, 20);
     console.log(p.area);
 
 
