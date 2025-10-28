@@ -80,7 +80,7 @@ En este caso, vamos a suponer que nuestra promesa ejecuta una tarea asíncrona m
   :linenos:
   :force:
 
-  let p= new Promise(function(resolve,reject) {  // función ejecutora
+  const p= new Promise(function(resolve,reject) {  // función ejecutora
     console.log('Entrando en el constructor de la promesa');
     setTimeout( function() {
       const r= Math.random();
@@ -130,7 +130,7 @@ El código anterior es equivalente al siguiente en el que en lugar de pasar dos 
   :linenos:
   :force:
 
-  let p= new Promise(function(resolve,reject) {
+  const p= new Promise(function(resolve,reject) {
     setTimeout( function() {
       const r= Math.random();
       if (r<0.5) {a introducción
