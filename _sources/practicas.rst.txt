@@ -445,9 +445,8 @@ Por último, coloca en algún punto del pie de la página un fragmento de HTML c
 Práctica 3: una aplicación con acceso a servicios web de terceros y con componentes web 🖥️
 ------------------------------------------------------------------------------------------
 
-En esta práctica ampliarás tu práctica anterior para integrarla con diferentes servicios web proporcionados por terceros a través de APIs; en particular, la imagen a mostrar junto al título de cada cuestionario será tomada de alguna de las imágenes relevantes ofrecidas por `Flickr`_; además, cada cuestionario mostrará un pequeño texto extraido de `Wikipedia en español`_ sobre el tema en cuestión. En la segunda parte, crearás algunos componentes web para encapsular adecuadamente toda esta información.
+En esta práctica ampliarás tu práctica anterior para integrarla con diferentes servicios web proporcionados por terceros a través de APIs; en particular, la imagen a mostrar junto al título de cada cuestionario será tomada de alguna de las imágenes relevantes ofrecidas por Unsplash; además, cada cuestionario mostrará un pequeño texto extraido de `Wikipedia en español`_ sobre el tema en cuestión. En la segunda parte, crearás algunos componentes web para encapsular adecuadamente toda esta información.
 
-.. _`Flickr`: https://www.flickr.com/
 .. _`Wikipedia en español`: https://es.wikipedia.org/
 
 No está permitido usar librerías de terceros para interactuar con los distintos servicios web, sino que lo has de hacer con el API Fetch estándar estudiado en clase. Tampoco está permitido usar librerías de alto nivel para los componentes web.
@@ -464,17 +463,16 @@ Consulta en la `documentación del API de Wikipedia`_ el propósito de cada par�
 .. _`documentación del API de Wikipedia`: https://www.mediawiki.org/wiki/API:Main_page/en
 .. _`extensión TextExtracts`: https://www.mediawiki.org/wiki/Extension:TextExtracts
 
-Por otro lado, lo siguiente es un ejemplo de la petición que has de realizar a Flickr para obtener las imágenes más relevantes de París (es necesario indicar un valor correcto de ``api_key`` en lugar de ``xxxxx``, según se indica más adelante):
+Por otro lado, lo siguiente es un ejemplo de la petición que has de realizar a Unsplash para obtener las imágenes más relevantes de París (es necesario indicar un valor correcto de ``client_id`` en lugar de ``xxxxx``, según se indica más adelante):
 
-`<https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=xxxxx&text=par%C3%ADs&format=json&per_page=10&media=photos&sort=relevance&nojsoncallback=1>`_
+`<https://api.unsplash.com/search/photos?query=par%C3%ADs&per_page=10&order_by=relevant&client_id=xxxxx>`_
 
-Consulta la `documentación del API de Flickr`_ para entender el propósito de cada parámetro de la llamada anterior; el resultado es una lista de imágenes de la que nos interesa el *id* de la primera para realizar una segunda llamada que nos permita acceder a la URL de dicha imagen:
+Consulta la `documentación del API de Unsplash`_ para entender el propósito de cada parámetro de la llamada anterior; considera utilizar la función ``encodeURIComponent`` de JavaScript al insertar el tema de tu cuestionario en la URL si las peticiones de temas con tildes o caracteres especiales no te funcionan bien; el resultado es una lista de imágenes en el campo ``results``. De esa lista, nos interesa quedarnos con la **primera** imagen y usar una de sus URL ya preparadas en el objeto ``urls`` (por ejemplo, ``small``) para colocarla en el atributo src de la etiqueta img del cuestionario. Ten en cuenta, en cualquier caso, que tu estilo CSS seguirá ajustando la imagen a un tamaño concreto, como se hizo en prácticas anteriores. 
 
-.. _`documentación del API de Flickr`: https://www.flickr.com/services/api/
+Usa siempre el protocolo *https* en todas las peticiones a Wikipedia y Unsplash.
 
-`<https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=xxxxxx&photo_id=13942935893&format=json&nojsoncallback=1>`_
+.. _`documentación del API de Unsplash`: https://unsplash.com/documentation
 
-De la lista de imágenes devuelta por la petición anterior, te has de quedar con la primera de ellas, que corresponderá a la versión de menor tamaño; ten en cuenta, en cualquier caso, que tu estilo CSS seguirá ajustando la imagen a un tamaño concreto, como se hizo en prácticas anteriores. Usa siempre en tu práctica las dos peticiones consecutivas a Flickr y no intentes componer automáticamente la URL de la imagen tras la primera petición. Además, utiliza el protocolo *https* en todas las peticiones a Wikipedia y Flickr.
 
 Incorporación de información de la Wikipedia
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -493,20 +491,22 @@ Usa una `expresión regular`_ y el método ``replace`` aplicado a cadenas de Jav
 
 .. _`expresión regular`: https://www.tutorialrepublic.com/javascript-tutorial/javascript-regular-expressions.php
 
-Incorporación de la información de Flickr
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Incorporación de la información de Unsplash
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Créate en primer lugar un usuario en `Flickr`_ y accede al `apartado de desarrolladores`_ para obtener una clave (*API key*) que usar en el parámetro ``api_key`` de la petición.
 
-.. _`apartado de desarrolladores`: https://www.flickr.com/services/api/misc.api_keys.html
+Créate en primer lugar una cuenta de desarrollador en `Unsplash`_ y registra una aplicación para obtener tu **Access Key** (``client_id``) que usarás en la petición.
 
-Sigue unos pasos similares a los del texto de la Wikipedia, pero ahora con la imagen. Crea una función ``addFlickr`` que reciba como parámetros la cadena con el término a buscar y el nodo que representa la imagen del cuestionario; esta función utiliza el API de Flickr de forma asíncrona para colocar (como valor del atributo ``src``) en el nodo recibido como parámetro la primera imagen devuelta por Flickr para el término correspondiente según se ha indicado anteriormente. En caso de que no exista ninguna imagen para dicho término, la imagen a mostrar ha de ser `esta del planeta Tierra`_.
+.. _`Unsplash`: https://unsplash.com/oauth/applications
+
+Sigue unos pasos similares a los del texto de la Wikipedia, pero ahora con la imagen. Crea una función ``addUnsplash`` que reciba como parámetros la cadena con el término a buscar y el nodo que representa la imagen del cuestionario; esta función utiliza la API de Unsplash de forma asíncrona para colocar (como valor del atributo ``src``) en el nodo recibido como parámetro la **primera** imagen devuelta por Unsplash para el término correspondiente, usando la URL ``urls.small``. En caso de que no exista ninguna imagen para dicho término, la imagen a mostrar ha de ser `esta del planeta Tierra`_.
 
 .. _`esta del planeta Tierra`: http://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57723/globe_east_540.jpg
 
-Asegúrate de que a la vez que añades los formularios y la descripción de la Wikipedia a los cuestionarios existentes inicialmente (sobre París y Londres), también llamas a ``addFlickr`` para incorporar la imagen correspondiente, que sustituirá a la mostrada inicialmente. Usa de nuevo como término a buscar el ``id`` de cada elemento ``section``.
+Asegúrate de que a la vez que añades los formularios y la descripción de la Wikipedia a los cuestionarios existentes inicialmente (sobre París y Londres), también llamas a ``addUnsplash`` para incorporar la imagen correspondiente, que sustituirá a la mostrada inicialmente. Usa de nuevo como término a buscar el ``id`` de cada elemento ``section``.
 
-Finalmente, añade la correspondiente llamada a ``addFlickr`` a la función ``addCuestionario`` y comprueba que se añade correctamente una nueva imagen con cada nuevo cuestionario. Elimina el campo del formulario de nuevo cuestionario que permitía indicar la URL de la imagen a incluir (borra el elemento ``li`` correspondiente), ya que ya no es necesario; asegúrate también de que no queda rastro de él en el código JavaScript.
+Finalmente, añade la correspondiente llamada a ``addUnsplash`` a la función ``addCuestionario`` y comprueba que se añade correctamente una nueva imagen con cada nuevo cuestionario. Elimina el campo del formulario de nuevo cuestionario que permitía indicar la URL de la imagen a incluir (borra el elemento ``li`` correspondiente), ya que ya no es necesario; asegúrate también de que no queda rastro de él en el código JavaScript.
+
 
 Creación de los componentes web
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -532,7 +532,7 @@ Si repasas bien los contenidos sobre componentes web estudiados en clase, no te 
 
 - Los estilos de ``h2``, ``img`` y ``wiki`` se han de eliminar del CSS global y añadirlos al estilo del componente ``encabezado-cuestionario``.
 
-- Gran parte del código necesario para interactuar con los servicios web de Flickr y Wikipedia lo puedes tomar de las funciones ``addFlickr`` y ``addWikipedia`` que ya tenías definidas, aunque los elementos que creaban estas funciones se añadían al DOM y ahora se añadirán al *shadow DOM*.
+- Gran parte del código necesario para interactuar con los servicios web de Unsplash y Wikipedia lo puedes tomar de las funciones ``addUnsplash`` y ``addWikipedia`` que ya tenías definidas, aunque los elementos que creaban estas funciones se añadían al DOM y ahora se añadirán al *shadow DOM*.
 
 - Intenta, en principio, conseguir que algo como:
 
@@ -540,9 +540,9 @@ Si repasas bien los contenidos sobre componentes web estudiados en clase, no te 
 
   <encabezado-cuestionario data-tema="Berlín"></encabezado-cuestionario>
 
-funcione en ``index.html``. Cuando lo consigas, sustituye el encabezado de los cuestionarios iniciales existentes en ``index.html`` por el uso del elemento personalizado ``encabezado-cuestionario``. Ya no es necesario, tampoco, tener que añadir el texto de la Wikipedia o la imagen de Flickr a los cuestionarios preexistentes mediante código explícito en JavaScript, sino que el nuevo elemento se encargará de ello.
+funcione en ``index.html``. Cuando lo consigas, sustituye el encabezado de los cuestionarios iniciales existentes en ``index.html`` por el uso del elemento personalizado ``encabezado-cuestionario``. Ya no es necesario, tampoco, tener que añadir el texto de la Wikipedia o la imagen de Unsplash a los cuestionarios preexistentes mediante código explícito en JavaScript, sino que el nuevo elemento se encargará de ello.
 
-- Repasa el tema de componentes web visto en clase antes de comenzar a escribir los componentes web. Pon el código en JavaScript que se encarga de acceder a los servicios de Flickr y Wikipedia en la función ``connectedCallback`` de la clase correspondiente y no en el constructor. Pon también en ``connectedCallback`` el acceso al atributo ``data-tema``.
+- Repasa el tema de componentes web visto en clase antes de comenzar a escribir los componentes web. Pon el código en JavaScript que se encarga de acceder a los servicios de Unsplash y Wikipedia en la función ``connectedCallback`` de la clase correspondiente y no en el constructor. Pon también en ``connectedCallback`` el acceso al atributo ``data-tema``.
 
 - Asegúrate después de que tu componente web se actualiza correctamente ante cambios dinámicos en el valor del atributo ``data-tema``. Para ello, tendrás que adaptar el código de ``connectedCallback`` y pasarlo al método ``attributeChangedCallback``. No actualices el índice cuando se cambie el valor de ``data-tema``, sin embargo, ni cualquier otro elemento de la aplicación que dependiera del tema anterior.
 
@@ -564,12 +564,12 @@ funcione en ``index.html``. Cuando lo consigas, sustituye el encabezado de los c
   }
 
 
-- Para terminar, puedes eliminar también las antiguas ``addFlickr`` y ``addWikipedia`` del código de JavaScript, así como sustituir su uso cuando se crean nuevos cuestionarios por código que se encargue de la inserción oportuna del componente web.
+- Para terminar, puedes eliminar también las antiguas ``addUnsplash`` y ``addWikipedia`` del código de JavaScript, así como sustituir su uso cuando se crean nuevos cuestionarios por código que se encargue de la inserción oportuna del componente web.
 
 Captura de pantalla
 ~~~~~~~~~~~~~~~~~~~
 
-Observa `en una imagen`_ cómo quedaría la página web una vez añadidos dos cuestionarios y algunas preguntas. Ten en cuenta que el texto descriptivo o las imágenes podrían no corresponderse exactamente con las que los servicios web de Wikipedia o Flickr ofrezcan en el momento en que pruebes tu práctica; en la imagen, además, no se han eliminado los números entre corchetes.
+Observa `en una imagen`_ cómo quedaría la página web una vez añadidos dos cuestionarios y algunas preguntas. Ten en cuenta que el texto descriptivo o las imágenes podrían no corresponderse exactamente con las que los servicios web de Wikipedia o Unsplash ofrezcan en el momento en que pruebes tu práctica; en la imagen, además, no se han eliminado los números entre corchetes.
 
 .. _`en una imagen`: _static/img/dai-p3-captura.png
 
@@ -617,7 +617,7 @@ Añade ahora en la carpeta adecuada de la aplicación del carrito, los ficheros 
 
 .. Note::
 
-  El único cambio que quizás tengas que hacer para que tu aplicación funcione en la nube de Google vendría dado porque a la hora de indicar los tipos de letra de Google Fonts o las direcciones de acceso a las APIs de Wikipedia o Flickr hubieras usado el protocolo *http* en lugar de *https*; en ese caso, tendrías que cambiarlo ahora ya que a las aplicaciones de Google App Engine se accede mediante *https* y desde una página descargada de forma segura no es posible referenciar recursos con URLs no seguras.
+  El único cambio que quizás tengas que hacer para que tu aplicación funcione en la nube de Google vendría dado porque a la hora de indicar los tipos de letra de Google Fonts o las direcciones de acceso a las APIs de Wikipedia o Unsplash hubieras usado el protocolo *http* en lugar de *https*; en ese caso, tendrías que cambiarlo ahora ya que a las aplicaciones de Google App Engine se accede mediante *https* y desde una página descargada de forma segura no es posible referenciar recursos con URLs no seguras.
 
 Como la página ya no contiene inicialmente ningún cuestionario, puedes borrar de la función *init* el código que se encargaba de añadir a cada uno de los cuestionarios existentes la cruz de borrado y el formulario de inserción de preguntas.
 
