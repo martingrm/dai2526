@@ -474,7 +474,7 @@ Finalmente, vamos a sobrescribir el método estándar ``attributeChangedCallback
 
 El `código final`_ de nuestro componente web es el siguiente:
 
-.. _`código final`: https://repl.it/@jaspock/InstructiveWhoppingAmpersand
+.. _`código final`: https://codepen.io/MARTIN-GARCIA-RIPOLL-MU-OZ/pen/JoXojpX
 
 .. code-block:: javascript
   :linenos:
