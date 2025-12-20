@@ -1588,6 +1588,206 @@
 </div>
 <p>Indica con qué sustituir la marca <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> para que los párrafos aparezcan en color <code class="docutils literal notranslate"><span class="pre">slategray</span></code> sin renunciar al resto de ventajas de la librería.</p>
 </div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-estilo">Problema</span></p>
+<p>Considera el siguiente fragmento de código HTML:</p>
+<div class="highlight-..-html notranslate"><div class="highlight"><pre><span></span>&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;a&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;main id=&quot;principal&quot; class=&quot;info-descripción act&quot;&gt;
+    &lt;h2&gt;b&lt;/h2&gt;
+    &lt;p&gt;uno&lt;/p&gt;
+    &lt;p id=&quot;info-detalle&quot; class=&quot;act&quot;&gt;dos&lt;/p&gt;
+  &lt;/main&gt;
+  &lt;section&gt;
+    &lt;h2&gt;c&lt;/h2&gt;
+    &lt;p&gt;tres&lt;/p&gt;
+    &lt;p lang=&quot;ca&quot; class=&quot;act&quot;&gt;quatre&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/body&gt;
+</pre></div>
+</div>
+<p>Lista todos los selectores de CSS de 15 caracteres o menos que permiten seleccionar el párrafo con el texto «quatre» y que no seleccionan ningún otro elemento.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-estilo">Problema</span></p>
+<p>El siguiente código muestra un formulario para enviar un mensaje a una dirección de correo electrónico. El botón de envío se representa mediante el emoji de un sobre. Usando animaciones y transiciones de CSS se consiguen diferentes efectos visuales que mejoran la experiencia de usuario. Al pasar el ratón por encima del botón de envío, este se agranda suavemente un 20%. Al enviar el formulario, el sobre gira 5 veces en sentido horario acelerando progresivamente su velocidad. Tras 2 segundos, el sobre vuelve a su posición original y se muestra una ventana emergente indicando que el mensaje ha sido enviado. El uso de la cuadrícula de CSS (<code class="docutils literal notranslate"><span class="pre">grid</span></code>) es secundario en este problema y se usa para centrar el formulario en la ventana del navegador, tanto vertical como horizontalmente.</p>
+<div class="highlight-..-css notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Message Form&lt;/title&gt;
+    &lt;style&gt;
+      body {
+        font-family: Arial, sans-serif;
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        margin: 0;
+        background: #f9f9f9;
+      }
+      form {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+      }
+      input, textarea {
+        margin: 10px 0;
+        padding: 10px;
+        font-size: 16px;
+        width: 200px;
+      }
+      button {
+        background: none;
+        border: none;
+        font-size: 30px;
+        cursor: pointer;
+        transition: @1 0.4s;
+      }
+      @2 {
+        animation: spin 2s cubic-bezier(0.99, 0.0, 1, 1);
+      }
+      button:hover {
+        transform: scale(1.2);
+      }
+      @keyframes @3 {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(@4); }
+      }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form id=&quot;emailForm&quot;&gt;
+        &lt;input type=&quot;email&quot; name=&quot;email&quot; placeholder=&quot;Recipient email&quot; required&gt;
+        &lt;textarea name=&quot;message&quot; placeholder=&quot;Message&quot; required&gt;&lt;/textarea&gt;
+        &lt;button type=&quot;submit&quot; id=&quot;sendButton&quot;&gt;✉️&lt;/button&gt;  &lt;!-- envelope button --&gt;
+    &lt;/form&gt;
+    &lt;script&gt;
+        const form = document.getElementById(&#39;emailForm&#39;);
+        const button = document.getElementById(&#39;sendButton&#39;);
+
+        form.addEventListener(&#39;submit&#39;, e =&gt; {
+            e.preventDefault();
+            button.classList.add(&#39;active&#39;);
+            setTimeout(() =&gt; {
+                button.classList.remove(&#39;active&#39;);
+                alert(&#39;Message sent!&#39;);
+            }, 2000);
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>Indica con qué sustituir las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code> para que el formulario funcione correctamente.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-estilo">Problema</span></p>
+<p>Considera el siguiente código HTML:</p>
+<div class="highlight-..-html notranslate"><div class="highlight"><pre><span></span>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;lock&quot;&gt;Num &lt;br&gt;Lock&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div&gt;/&lt;/div&gt;
+  &lt;div&gt;*&lt;/div&gt;
+  &lt;div&gt;&amp;minus;&lt;/div&gt;
+
+  &lt;div class=&quot;seven&quot;&gt;7 &lt;span&gt;Home&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;eight arrow&quot;&gt;8 &lt;span&gt;&amp;uarr;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;nine&quot;&gt;9 &lt;span&gt;PgUp&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;plus&quot;&gt;+&lt;/div&gt;
+
+  &lt;div class=&quot;four arrow&quot;&gt;4 &lt;span&gt;&amp;larr;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;five&quot;&gt;5&lt;/div&gt;
+  &lt;div class=&quot;six arrow&quot;&gt;6 &lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;one&quot;&gt;1 &lt;span&gt;End&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;two arrow&quot;&gt;2 &lt;span&gt;&amp;darr;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;three&quot;&gt;3 &lt;span&gt;PgDn&lt;/span&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;zero&quot;&gt;0 &lt;span&gt;Ins&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;enter&quot;&gt;Enter&lt;/div&gt;
+  &lt;div class=&quot;dot&quot;&gt;. &lt;span&gt;Del&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre></div>
+</div>
+<p>Considera que al código anterior se le está aplicando esta hoja de estilo (inspirada en el código de <code class="docutils literal notranslate"><span class="pre">codepen.io/CreativeCoder111/pen/WNzWxOR</span></code>):</p>
+<div class="highlight-..-css notranslate"><div class="highlight"><pre><span></span>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 300px;
+    display: grid;
+    grid-template: repeat(@1, 60px) / repeat(@2, 1fr);
+    gap: 15px;
+    margin: 20px;
+    background: #ffffff;
+}
+
+.container &gt; div {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #29292c;
+    color: #fff;
+    border-radius: 4px 4px 12px 12px;
+    box-shadow: 3px 3px 3px #797777,
+                -5px -5px 5px #cac9c9;
+    cursor: pointer;
+    position: @3;
+}
+
+.plus {
+    grid-row: 2 / 4;
+    grid-column: 4 / 5;
+}
+
+.enter {
+    grid-row: 4 / 6;
+    grid-column: 4 / 5;
+}
+
+.zero {
+    grid-column: @4;
+}
+
+.container &gt; div span {
+    position: absolute;
+    bottom: 5px;
+    right: 7px;
+    font-size: 10px;
+    color: #fff;
+}
+
+.lock span {
+    position: absolute;
+    @5: 5px;
+    right: 5px;
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.lock {
+    font-size: 10px @6;
+}
+
+div.arrow span {
+    font-size: 14px;
+}
+</pre></div>
+</div>
+<p>Indica con qué sustituir las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;5</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;6</span></code> para que se muestre un teclado numérico como el de la siguiente imagen:</p>
+<figure class="align-default" style="width: 20%">
+<a class="reference external image-reference" href="_static/img/problema-teclado.png"><img alt="teclado numérico" src="_images/problema-teclado.png" /></a>
+</figure>
+</div>
 </section>
 <section id="programar-el-lado-del-cliente">
 <h2><span class="section-number">8.3. </span>Programar el lado del cliente<a class="headerlink" href="#programar-el-lado-del-cliente" title="Enlace permanente a este encabezado"></a></h2>
@@ -2899,6 +3099,18 @@ customElements.define(&#39;progress-bar&#39;, ProgressBar);
 </div>
 <div class="problema admonition">
 <p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>En el siguiente programa en JavaScript la función <code class="docutils literal notranslate"><span class="pre">emit</span></code> imprime por consola el valor pasado como parámetro tras realizar una serie de cálculos durante 1 segundo. El tiempo de ejecución de cualquier otro elemento del código es no nulo pero virtualmente infinitesimal. La función <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> es estándar de JavaScript y registra una función que se ejecutará asíncronamente después del número de milisegundos indicados como segundo parámetro.</p>
+<p>Indica cuál es la salida del programa por consola.</p>
+<div class="highlight-..-javascript notranslate"><div class="highlight"><pre><span></span>const lista=[8,2,16,4];
+for(let i=0;i&lt;lista.length;i++) {
+  setTimeout(function() {emit(lista[i]);}, lista[i]);
+  setTimeout(function() {emit(lista[i]);}, lista[i]*lista[i]);
+}
+</pre></div>
+</div>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
 <p>Considera este código de JavaScript:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">AnimalPrototype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w">  </span><span class="c1">// atributo estático</span>
@@ -3236,6 +3448,111 @@ Meow!
 </pre></div>
 </div>
 <p>Indica el valor de las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> para que el código anterior funcione como se ha indicado.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>Indica cuál es la salida del siguiente programa en JavaScript. Separar los valores impresos en distintas líneas con comas.</p>
+<div class="highlight-..-javascript notranslate"><div class="highlight"><pre><span></span>try {
+  const x = {a:2, f:function() {this.a++}}
+  const y = x;
+  var g = function() {this.a=0; b=10}
+  x.f();
+  console.log(x.a);
+  y.f();
+  console.log(y.a);
+  x.g();
+  console.log(x.a);
+  if (Object.getPrototypeOf(x) == Object.prototype)
+    console.log(y.a);
+} catch (e) {
+  const y = new g();
+  console.log(y.prototype == g.prototype);
+  console.log(Object.getPrototypeOf(x) == Object.getPrototypeOf(y));
+}
+console.log(y.a);
+</pre></div>
+</div>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p><em>Wikipedia Speedruns</em> es un juego al que se puede jugar desde cualquier navegador web. El objetivo del juego es llegar a una página de Wikipedia concreta determinada aleatoriamente en el menor tiempo posible. El juego se inicia en una página aleatoria de Wikipedia (diferente a la página objetivo) y el jugador puede hacer clic en cualquier enlace de la página para ir a otra página de Wikipedia. El juego termina cuando el jugador llega a la página objetivo, momento en el que se muestra un mensaje de felicitación con el tiempo que se ha necesitado para ello.</p>
+<p>El siguiente código es una versión muy sencilla del juego que puedes colocar en tu servidor web. En el array <code class="docutils literal notranslate"><span class="pre">pages</span></code> se definen las páginas que pueden ser origen y destino. Las páginas por las que va navegando el jugador se cargan en un <code class="docutils literal notranslate"><span class="pre">iframe</span></code>. Un <code class="docutils literal notranslate"><span class="pre">iframe</span></code> es un elemento HTML que permite incrustar otra página web en la página actual. Desde la página actual se puede acceder a la URL actual del <code class="docutils literal notranslate"><span class="pre">iframe</span></code> mediante la propiedad <code class="docutils literal notranslate"><span class="pre">contentWindow.location.href</span></code>. El evento <code class="docutils literal notranslate"><span class="pre">load</span></code> sobre un <code class="docutils literal notranslate"><span class="pre">iframe</span></code> se dispara cuando ha terminado de cargarse cada nueva página. La función <code class="docutils literal notranslate"><span class="pre">Math.random()</span></code> devuelve un número aleatorio entre 0 (incluido) y 1 (no incluido), mientras que <code class="docutils literal notranslate"><span class="pre">Math.floor()</span></code> redondea un número real hacia abajo al entero más cercano. Finalmente, la función <code class="docutils literal notranslate"><span class="pre">setInterval</span></code> ejecuta una función cada cierto intervalo de tiempo; para detener la ejecución periódica se puede usar la función <code class="docutils literal notranslate"><span class="pre">clearInterval</span></code>.</p>
+<div class="highlight-..-javascript notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;title&gt;Speedruns!&lt;/title&gt;
+&lt;style&gt;
+  #info {
+    margin-bottom: 20px;
+  }
+  iframe {
+    width: 100%;
+    height: 80vh;
+    border: 1px solid #ccc;
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;info&quot;&gt;
+  &lt;h1&gt;Speedruns!&lt;/h1&gt;
+  &lt;p&gt;Start: &lt;span id=&quot;start-term&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;Target: &lt;span id=&quot;target-term&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;Elapsed time: &lt;span id=&quot;time-elapsed&quot;&gt;0&lt;/span&gt; seconds&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;iframe id=&quot;nav-frame&quot; src=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;script&gt;
+const pages = [&quot;a.html&quot;, &quot;b.html&quot;, &quot;c.html&quot;, &quot;d.html&quot;];
+
+function getRandomPages(list) {
+  const index1 = Math.floor(Math.random() * list.length);
+  let index2 = Math.floor(Math.random() * list.length);
+  while (index2 === @1) {
+    index2 = Math.floor(Math.random() * list.length);
+  }
+  return [list[index1], list[index2]];
+}
+
+const [@2] = getRandomPages(pages);
+
+document.getElementById(&#39;start-term&#39;).textContent = startPage;
+document.getElementById(&#39;target-term&#39;).textContent = targetPage;
+
+const baseURL = &quot;http://localhost:8000/&quot;;
+const iframe = document.getElementById(&#39;nav-frame&#39;);
+iframe.src = baseURL + startPage;
+
+let startTime = Date.now();
+const intervalId = setInterval(() =&gt; {
+  const elapsed = Math.floor((Date.now() - @3) / 1000);
+  document.querySelector(@4).textContent = elapsed;
+}, 1000);
+
+iframe.addEventListener(&#39;load&#39;, function() {
+  try {
+    let currentUrl = iframe.contentWindow.location.href;
+    const expectedUrl = baseURL + targetPage;
+
+    if (currentUrl === expectedUrl) {
+      clearInterval(intervalId);
+      const totalTime = Math.floor((Date.now() - @3) / 1000);
+      alert(`You reached the target page in ${totalTime} seconds!`);
+    }
+  } catch (e) {
+    console.warn(&quot;Error trying to access iframe content:&quot;, e);
+  }
+});
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>Indica con qué sustituir las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code> para que el juego funcione correctamente.</p>
+<p><em>Nota:</em> aunque no es relevante para resolver este problema, ten en cuenta que el acceso a las propiedades del <code class="docutils literal notranslate"><span class="pre">iframe</span></code> desde la página principal está restringido por la política del mismo origen (<em>same-origin policy</em>) de los navegadores. Es en previsión de este tipo de problemas que se incluye el bloque <code class="docutils literal notranslate"><span class="pre">try...catch</span></code> en el evento <code class="docutils literal notranslate"><span class="pre">load</span></code> del <code class="docutils literal notranslate"><span class="pre">iframe</span></code>.</p>
 </div>
 </section>
 <section id="acceso-a-servicios-web-de-terceros">
@@ -3897,6 +4214,64 @@ Promise.allBefore([promise1, promise2, promise3], [2500, 1500, 3500])
 <p>La función <code class="docutils literal notranslate"><span class="pre">Object.entries</span></code> devuelve un <em>array</em> de <em>arrays</em> con las parejas clave-valor de un objeto. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">Object.entries({</span> <span class="pre">a:</span> <span class="pre">1,</span> <span class="pre">b:</span> <span class="pre">2</span> <span class="pre">})</span></code> devuelve <code class="docutils literal notranslate"><span class="pre">[['a',</span> <span class="pre">1],</span> <span class="pre">['b',</span> <span class="pre">2]]</span></code>. La función <code class="docutils literal notranslate"><span class="pre">join</span></code> une los elementos de un <em>array</em> en una cadena separándolos por el carácter que se le pasa como argumento. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">['a',</span> <span class="pre">'b',</span> <span class="pre">'c'].join('-')</span></code> devuelve <code class="docutils literal notranslate"><span class="pre">'a-b-c'</span></code>. La función <code class="docutils literal notranslate"><span class="pre">map</span></code> aplica una función a cada elemento de un <em>array</em> y devuelve un <em>array</em> con los resultados. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3].map((x)</span> <span class="pre">=&gt;</span> <span class="pre">x</span> <span class="pre">*</span> <span class="pre">2)</span></code> devuelve <code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">4,</span> <span class="pre">6]</span></code>.</p>
 <p>No necesitas conocer esto para resolver este problema, pero la propiedad <code class="docutils literal notranslate"><span class="pre">display:flex</span></code> de CSS permite definir un contenedor flexible que alinea sus elementos hijos de forma horizontal o vertical; la propiedad <code class="docutils literal notranslate"><span class="pre">justify-content:</span> <span class="pre">space-around</span></code> permite distribuir los elementos hijos de un contenedor flexible de forma que haya el mismo espacio entre ellos; y la propiedad  <code class="docutils literal notranslate"><span class="pre">align-items:</span> <span class="pre">center</span></code> permite alinear verticalmente los elementos hijos de un contenedor flexible.</p>
 <p>Sustituye <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">3</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code> por las cadenas necesarias para que el componente web se comporte correctamente.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-componentes">Problema</span></p>
+<p>Considera el siguiente código que define un componente web <code class="docutils literal notranslate"><span class="pre">back-to-top</span></code> que fija un botón en la esquina inferior derecha de la ventana del navegador para volver al principio de la página. Este botón solo se muestra cuando el usuario ha hecho scroll hacia abajo más de 200 píxeles (algo que puede determinarse con la propiedad <code class="docutils literal notranslate"><span class="pre">window.scrollY</span></code> sobre el objeto global <code class="docutils literal notranslate"><span class="pre">window</span></code>). Al hacer clic en el botón, la página se desplaza suavemente hacia arriba (mediante la función <code class="docutils literal notranslate"><span class="pre">window.scrollTo</span></code>).</p>
+<div class="highlight-..-javascript notranslate"><div class="highlight"><pre><span></span>class BackToTop extends HTMLElement {
+  constructor() {
+    super();
+
+    const shadow = this.attachShadow({ mode: &#39;open&#39; });
+
+    const s = document.createElement(@1);
+    s.textContent = `
+      #button {
+        position: @2;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: @3;
+      }
+      #button:hover {
+        background-color: #0056b3;
+      }
+    `;
+
+    const button = document.createElement(&#39;button&#39;);
+    button.id = &#39;button&#39;;
+    button.textContent = &#39;⬆ Volver arriba&#39;;
+
+    shadow.@4(s);
+    shadow.@4(button);
+
+    window.addEventListener(&#39;scroll&#39;, () =&gt; {
+      if (window.scrollY &gt; 200) {
+        button.style.display = @5;
+      } else {
+        button.style.display = &#39;none&#39;;
+      }
+    });
+
+    button.addEventListener(&#39;click&#39;, () =&gt; {
+      window.scrollTo({
+        top: 0,
+        behavior: &#39;smooth&#39;
+      });
+    });
+  }
+}
+customElements.define(&#39;back-to-top&#39;, BackToTop);
+</pre></div>
+</div>
+<p>Indica con qué sustituir las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;5</span></code> para que el componente web funcione como se ha indicado.</p>
 </div>
 </section>
 <section id="implementacion-de-servicios-web">

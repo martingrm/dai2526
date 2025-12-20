@@ -1836,6 +1836,343 @@ Lenguajes de estilo
   .. solución: @1=!important
   .. enero 2023
 
+.. ---------
+
+.. admonition:: :problema-contador-estilo:`Problema`
+  :class: problema
+
+  Considera el siguiente fragmento de código HTML:
+
+  .. code-block:: ..-html
+    :force:
+
+    <body>
+      <header>
+        <h1>a</h1>
+      </header>
+      <main id="principal" class="info-descripción act">
+        <h2>b</h2>
+        <p>uno</p>
+        <p id="info-detalle" class="act">dos</p>
+      </main>
+      <section>
+        <h2>c</h2>
+        <p>tres</p>
+        <p lang="ca" class="act">quatre</p>
+      </section>
+    </body>
+
+  Lista todos los selectores de CSS de 15 caracteres o menos que permiten seleccionar el párrafo con el texto "quatre" y que no seleccionan ningún otro elemento.
+
+  .. solución: [lang], [lang=ca], [lang="ca"], p[lang="ca"], section .act, section p.act, section > p.act, section > .act, .act[lang="ca"]
+  .. examen julio 2024 [con 10], enero 2025
+
+.. ------
+
+
+.. admonition:: :problema-contador-estilo:`Problema`
+  :class: problema
+
+  El siguiente código muestra un formulario para enviar un mensaje a una dirección de correo electrónico. El botón de envío se representa mediante el emoji de un sobre. Usando animaciones y transiciones de CSS se consiguen diferentes efectos visuales que mejoran la experiencia de usuario. Al pasar el ratón por encima del botón de envío, este se agranda suavemente un 20%. Al enviar el formulario, el sobre gira 5 veces en sentido horario acelerando progresivamente su velocidad. Tras 2 segundos, el sobre vuelve a su posición original y se muestra una ventana emergente indicando que el mensaje ha sido enviado. El uso de la cuadrícula de CSS (``grid``) es secundario en este problema y se usa para centrar el formulario en la ventana del navegador, tanto vertical como horizontalmente.
+
+  .. code-block:: ..-css
+    :force:
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Message Form</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f9f9f9;
+          }
+          form {
+            display: grid;
+            gap: 10px;
+            justify-items: center;
+          }
+          input, textarea {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+          }
+          button {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            transition: @1 0.4s;
+          }
+          @2 {
+            animation: spin 2s cubic-bezier(0.99, 0.0, 1, 1);
+          }
+          button:hover {
+            transform: scale(1.2);
+          }
+          @keyframes @3 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(@4); }
+          }
+        </style>
+    </head>
+    <body>
+        <form id="emailForm">
+            <input type="email" name="email" placeholder="Recipient email" required>
+            <textarea name="message" placeholder="Message" required></textarea>
+            <button type="submit" id="sendButton">✉️</button>  <!-- envelope button -->
+        </form>
+        <script>
+            const form = document.getElementById('emailForm');
+            const button = document.getElementById('sendButton');
+
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                button.classList.add('active');
+                setTimeout(() => {
+                    button.classList.remove('active');
+                    alert('Message sent!');
+                }, 2000);
+            });
+        </script>
+    </body>
+    </html>
+
+  Indica con qué sustituir las marcas ``@1``, ``@2``, ``@3`` y ``@4`` para que el formulario funcione correctamente.
+
+  .. solución: @1=transform [all], @2=button.active, @3=spin, @4=1800deg
+  .. examen enero 2025
+
+.. ---------
+
+.. admonition:: :problema-contador-estilo:`Problema`
+  :class: problema
+
+  Considera el siguiente código HTML:
+
+  .. code-block:: ..-html
+    :force:
+
+    <div class="container">
+      <div class="lock">Num <br>Lock<span></span></div>
+      <div>/</div>
+      <div>*</div>
+      <div>&minus;</div>
+
+      <div class="seven">7 <span>Home</span></div>
+      <div class="eight arrow">8 <span>&uarr;</span></div>
+      <div class="nine">9 <span>PgUp</span></div>
+      <div class="plus">+</div>
+
+      <div class="four arrow">4 <span>&larr;</span></div>
+      <div class="five">5</div>
+      <div class="six arrow">6 <span>&rarr;</span></div>
+
+      <div class="one">1 <span>End</span></div>
+      <div class="two arrow">2 <span>&darr;</span></div>
+      <div class="three">3 <span>PgDn</span></div>
+
+      <div class="zero">0 <span>Ins</span></div>
+      <div class="enter">Enter</div>
+      <div class="dot">. <span>Del</span></div>
+    </div>
+
+  Considera que al código anterior se le está aplicando esta hoja de estilo (inspirada en el código de ``codepen.io/CreativeCoder111/pen/WNzWxOR``):
+
+  .. code-block:: ..-css
+    :force:
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container {
+        width: 300px;
+        display: grid;
+        grid-template: repeat(@1, 60px) / repeat(@2, 1fr);
+        gap: 15px;
+        margin: 20px;
+        background: #ffffff;
+    }
+
+    .container > div {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #29292c;
+        color: #fff;
+        border-radius: 4px 4px 12px 12px;
+        box-shadow: 3px 3px 3px #797777,
+                    -5px -5px 5px #cac9c9;
+        cursor: pointer;
+        position: @3;
+    }
+
+    .plus {
+        grid-row: 2 / 4;
+        grid-column: 4 / 5;
+    }
+
+    .enter {
+        grid-row: 4 / 6;
+        grid-column: 4 / 5;
+    }
+
+    .zero {
+        grid-column: @4;
+    }
+
+    .container > div span {
+        position: absolute;
+        bottom: 5px;
+        right: 7px;
+        font-size: 10px;
+        color: #fff;
+    }
+
+    .lock span {
+        position: absolute;
+        @5: 5px;
+        right: 5px;
+        width: 5px;
+        height: 5px;
+        background: #fff;
+        border-radius: 50%;
+    }
+
+    .lock {
+        font-size: 10px @6;
+    }
+
+    div.arrow span {
+        font-size: 14px;
+    }
+
+  Indica con qué sustituir las marcas ``@1``, ``@2``, ``@3``, ``@4``, ``@5`` y ``@6`` para que se muestre un teclado numérico como el de la siguiente imagen:
+
+  .. figure:: _static/img/problema-teclado.png
+    :target: _static/img/problema-teclado.png
+    :alt: teclado numérico
+    :figwidth: 20 %
+
+    <div id="teclado-numerico">
+      <script>
+        var root = document.querySelector('#teclado-numerico').attachShadow({mode:'open'});
+        root.innerHTML = `
+          <style>
+          * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+          }
+
+          .container {
+              width: 300px;
+              display: grid;
+              grid-template: repeat(5, 60px) / repeat(4, 1fr);
+              gap: 15px;
+              margin: 20px;
+              background: #ffffff; 
+          }
+
+          .container > div {
+              display: grid;
+              justify-items: center;
+              align-items: center;
+              font-size: 18px;
+              font-weight: 600;
+              font-family: Arial, Helvetica, sans-serif;
+              background: #29292c;
+              color: #fff;
+              border-radius: 4px 4px 12px 12px;
+              box-shadow: 3px 3px 3px #797777,
+                          -5px -5px 5px #cac9c9;
+              cursor: pointer;
+              position: relative;
+          }
+
+          .plus {
+              grid-row: 2 / 4;
+              grid-column: 4 / 5;
+          }
+
+          .enter {
+              grid-row: 4 / 6;
+              grid-column: 4 / 5;
+          }
+
+          .zero {
+              grid-column: 1 / 3;
+          }
+
+          .container > div span {
+              position: absolute;
+              bottom: 5px;
+              right: 7px;
+              font-size: 10px;
+              color: #fff;
+          }
+
+          .lock span {
+              position: absolute;
+              top: 5px;
+              right: 5px;
+              width: 5px;
+              height: 5px;
+              background: #fff;
+              border-radius: 50%;
+          }
+
+          .lock {
+              font-size: 10px !important;
+          }
+
+          div.arrow span {
+              font-size: 14px;
+          }
+          </style>
+          <div class="container">
+            <div class="lock">Num <br>Lock<span></span></div>
+            <div>/</div>
+            <div>*</div>
+            <div>&minus;</div>
+
+            <div class="seven">7 <span>Home</span></div>
+            <div class="eight arrow">8 <span>&uarr;</span></div>
+            <div class="nine">9 <span>PgUp</span></div>
+            <div class="plus">+</div>
+
+            <div class="four arrow">4 <span>&larr;</span></div>
+            <div class="five">5</div>
+            <div class="six arrow">6 <span>&rarr;</span></div>
+
+            <div class="one">1 <span>End</span></div>
+            <div class="two arrow">2 <span>&darr;</span></div>
+            <div class="three">3 <span>PgDn</span></div>
+
+            <div class="zero">0 <span>Ins</span></div>
+            <div class="enter">Enter</div>
+            <div class="dot">. <span>Del</span></div>
+          </div>`;
+      </script>
+    </div>
+
+  .. solución: @1=5, @2=4, @3=relative, @4=1/3 [1 span 2], @5=top, @6=!important
+  .. examen enero 2025
+
+.. ------
+
 
 
 Programar el lado del cliente
@@ -3656,6 +3993,28 @@ Programar el lado del cliente
 .. admonition:: :problema-contador-cliente:`Problema`
   :class: problema
 
+  En el siguiente programa en JavaScript la función ``emit`` imprime por consola el valor pasado como parámetro tras realizar una serie de cálculos durante 1 segundo. El tiempo de ejecución de cualquier otro elemento del código es no nulo pero virtualmente infinitesimal. La función ``setTimeout`` es estándar de JavaScript y registra una función que se ejecutará asíncronamente después del número de milisegundos indicados como segundo parámetro. 
+  
+  Indica cuál es la salida del programa por consola.
+
+  .. code-block:: ..-javascript
+    :force:
+
+    const lista=[8,2,16,4];
+    for(let i=0;i<lista.length;i++) {
+      setTimeout(function() {emit(lista[i]);}, lista[i]);
+      setTimeout(function() {emit(lista[i]);}, lista[i]*lista[i]);
+    }
+
+  .. solución: 2, 2, 4, 8, 16, 4, 8, 16
+  .. function emit(s) { function pause(milliseconds) { let dt = new Date(); while ((new Date())-dt<=milliseconds) { /* Do nothing */} } pause(1000); let dt= new Date(); let seconds= dt.getSeconds(); console.log(seconds+"': "+s); }
+  .. examen julio 2024, enero 2025
+
+.. ------
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
   Considera este código de JavaScript:
 
   .. code-block:: javascript
@@ -4050,6 +4409,133 @@ Programar el lado del cliente
   .. junio 2023
 
 .. -------
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
+  Indica cuál es la salida del siguiente programa en JavaScript. Separar los valores impresos en distintas líneas con comas.
+
+  .. code-block:: ..-javascript
+    :force:
+
+    try {
+      const x = {a:2, f:function() {this.a++}}
+      const y = x;
+      var g = function() {this.a=0; b=10}
+      x.f();
+      console.log(x.a);
+      y.f();
+      console.log(y.a);
+      x.g();
+      console.log(x.a);
+      if (Object.getPrototypeOf(x) == Object.prototype) 
+        console.log(y.a);
+    } catch (e) {
+      const y = new g();
+      console.log(y.prototype == g.prototype);
+      console.log(Object.getPrototypeOf(x) == Object.getPrototypeOf(y));
+    }
+    console.log(y.a);
+
+  .. solución: 3, 4, false, false, 0
+  .. examen enero 2025
+
+.. ----------
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
+  *Wikipedia Speedruns* es un juego al que se puede jugar desde cualquier navegador web. El objetivo del juego es llegar a una página de Wikipedia concreta determinada aleatoriamente en el menor tiempo posible. El juego se inicia en una página aleatoria de Wikipedia (diferente a la página objetivo) y el jugador puede hacer clic en cualquier enlace de la página para ir a otra página de Wikipedia. El juego termina cuando el jugador llega a la página objetivo, momento en el que se muestra un mensaje de felicitación con el tiempo que se ha necesitado para ello.
+
+  El siguiente código es una versión muy sencilla del juego que puedes colocar en tu servidor web. En el array ``pages`` se definen las páginas que pueden ser origen y destino. Las páginas por las que va navegando el jugador se cargan en un ``iframe``. Un ``iframe`` es un elemento HTML que permite incrustar otra página web en la página actual. Desde la página actual se puede acceder a la URL actual del ``iframe`` mediante la propiedad ``contentWindow.location.href``. El evento ``load`` sobre un ``iframe`` se dispara cuando ha terminado de cargarse cada nueva página. La función ``Math.random()`` devuelve un número aleatorio entre 0 (incluido) y 1 (no incluido), mientras que ``Math.floor()`` redondea un número real hacia abajo al entero más cercano. Finalmente, la función ``setInterval`` ejecuta una función cada cierto intervalo de tiempo; para detener la ejecución periódica se puede usar la función ``clearInterval``.
+
+  .. code-block:: ..-javascript
+    :force:
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8" />
+    <title>Speedruns!</title>
+    <style>
+      #info {
+        margin-bottom: 20px;
+      }
+      iframe {
+        width: 100%;
+        height: 80vh;
+        border: 1px solid #ccc;
+      }
+    </style>
+    </head>
+    <body>
+
+    <div id="info">
+      <h1>Speedruns!</h1>
+      <p>Start: <span id="start-term"></span></p>
+      <p>Target: <span id="target-term"></span></p>
+      <p>Elapsed time: <span id="time-elapsed">0</span> seconds</p>
+    </div>
+
+    <iframe id="nav-frame" src=""></iframe>
+
+    <script>
+    const pages = ["a.html", "b.html", "c.html", "d.html"];
+
+    function getRandomPages(list) {
+      const index1 = Math.floor(Math.random() * list.length);
+      let index2 = Math.floor(Math.random() * list.length);
+      while (index2 === @1) {
+        index2 = Math.floor(Math.random() * list.length);
+      }
+      return [list[index1], list[index2]];
+    }
+
+    const [@2] = getRandomPages(pages);
+
+    document.getElementById('start-term').textContent = startPage;
+    document.getElementById('target-term').textContent = targetPage;
+
+    const baseURL = "http://localhost:8000/";
+    const iframe = document.getElementById('nav-frame');
+    iframe.src = baseURL + startPage;
+
+    let startTime = Date.now();
+    const intervalId = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - @3) / 1000);
+      document.querySelector(@4).textContent = elapsed;
+    }, 1000);
+
+    iframe.addEventListener('load', function() { 
+      try {
+        let currentUrl = iframe.contentWindow.location.href;
+        const expectedUrl = baseURL + targetPage;
+
+        if (currentUrl === expectedUrl) {
+          clearInterval(intervalId);
+          const totalTime = Math.floor((Date.now() - @3) / 1000);
+          alert(`You reached the target page in ${totalTime} seconds!`);
+        }
+      } catch (e) {
+        console.warn("Error trying to access iframe content:", e);
+      }
+    });
+    </script>
+
+    </body>
+    </html>
+
+  Indica con qué sustituir las marcas ``@1``, ``@2``, ``@3`` y ``@4`` para que el juego funcione correctamente.
+
+  *Nota:* aunque no es relevante para resolver este problema, ten en cuenta que el acceso a las propiedades del ``iframe`` desde la página principal está restringido por la política del mismo origen (*same-origin policy*) de los navegadores. Es en previsión de este tipo de problemas que se incluye el bloque ``try...catch`` en el evento ``load`` del ``iframe``.
+
+  .. solución: @1=index1, @2=startPage, targetPage, @3=startTime, @4='#time-elapsed'
+  .. examen enero 2025
+
+.. ---------
+
+
+
 
 Acceso a servicios web de terceros
 ----------------------------------
@@ -4900,6 +5386,73 @@ Componentes web
   .. junio 2023
 
 .. ------
+
+.. admonition:: :problema-contador-componentes:`Problema`
+  :class: problema
+
+  Considera el siguiente código que define un componente web ``back-to-top`` que fija un botón en la esquina inferior derecha de la ventana del navegador para volver al principio de la página. Este botón solo se muestra cuando el usuario ha hecho scroll hacia abajo más de 200 píxeles (algo que puede determinarse con la propiedad ``window.scrollY`` sobre el objeto global ``window``). Al hacer clic en el botón, la página se desplaza suavemente hacia arriba (mediante la función ``window.scrollTo``).
+
+  .. code-block:: ..-javascript
+    :force:
+
+    class BackToTop extends HTMLElement {
+      constructor() {
+        super();
+
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        const s = document.createElement(@1);
+        s.textContent = `
+          #button {
+            position: @2;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: @3;
+          }
+          #button:hover {
+            background-color: #0056b3;
+          }
+        `;
+
+        const button = document.createElement('button');
+        button.id = 'button';
+        button.textContent = '⬆ Volver arriba';
+
+        shadow.@4(s);
+        shadow.@4(button);
+
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 200) {
+            button.style.display = @5;
+          } else {
+            button.style.display = 'none';
+          }
+        });
+
+        button.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
+    }
+    customElements.define('back-to-top', BackToTop);
+    
+  Indica con qué sustituir las marcas ``@1``, ``@2``, ``@3``, ``@4`` y ``@5`` para que el componente web funcione como se ha indicado.
+
+  .. solución: @1='style' @2=fixed, @3=none, @4=appendChild, @5='block'
+  .. examen enero 2025
+
+.. ---------
 
 Implementación de servicios web
 -------------------------------
