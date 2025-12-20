@@ -1590,6 +1590,102 @@
 </div>
 <div class="problema admonition">
 <p class="admonition-title"><span class="problema-contador-estilo">Problema</span></p>
+<p>Considera el siguiente fragmento de CSS que contiene estilos para mostrar crucigramas en documentos HTML:</p>
+<div class="highlight-..-css notranslate"><div class="highlight"><pre><span></span>.crossword {
+  display: grid;
+  width: 200px;
+  grid-template-columns: repeat(4, 1@1);
+  @2: repeat(4, 50px);
+  gap: @3;
+}
+
+.cell {
+  border: 1px solid black;
+  padding-left: 1ex;
+}
+
+.cell.black {
+  background-color: black;
+}
+
+.cell.number::before {
+  @4: attr(data-number);
+  font-size: 12px;
+}
+</pre></div>
+</div>
+<p>Y el siguiente fragmento de HTML que usa los estilos anteriores:</p>
+<div class="highlight-..-html notranslate"><div class="highlight"><pre><span></span>&lt;div class=&quot;crossword&quot;&gt;
+  &lt;div class=&quot;cell number&quot; data-number=&quot;1&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell number&quot; data-number=&quot;2&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell black&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell number&quot; data-number=&quot;3&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell number&quot; data-number=&quot;4&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell number&quot; data-number=&quot;6&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell black&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell black&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell number&quot; data-number=&quot;7&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell number&quot; data-number=&quot;8&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell number&quot; data-number=&quot;9&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell black&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell black&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cell&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre></div>
+</div>
+<p>El fragmento anterior se visualiza en un navegador como sigue:</p>
+<div id="crucigrama">
+  <script>
+    var root = document.querySelector('#crucigrama').attachShadow({mode:'open'});
+    root.innerHTML = `
+      <style>
+        .crossword {
+          display: grid;
+          width: 200px;
+          grid-template-columns: repeat(4, 1fr);
+          grid-template-rows: repeat(4, 50px);
+          gap: 0;
+        }
+
+        .cell {
+          border: 1px solid black;
+          padding-left: 1ex;
+        }
+
+        .cell.black {
+          background-color: black;
+        }
+
+        .cell.number::before {
+          content: attr(data-number);
+          font-size: 12px;
+        }
+      </style>
+      <div class="crossword">
+        <div class="cell number" data-number="1"></div>
+        <div class="cell number" data-number="2"></div>
+        <div class="cell black"></div>
+        <div class="cell number" data-number="3"></div>
+        <div class="cell number" data-number="4"></div>
+        <div class="cell"></div>
+        <div class="cell number" data-number="6"></div>
+        <div class="cell black"></div>
+        <div class="cell black"></div>
+        <div class="cell number" data-number="7"></div>
+        <div class="cell"></div>
+        <div class="cell number" data-number="8"></div>
+        <div class="cell number" data-number="9"></div>
+        <div class="cell black"></div>
+        <div class="cell black"></div>
+        <div class="cell"></div>
+      </div>`;
+  </script>
+</div><p>Indica con qué sustituir las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code> para que el crucigrama se visualice como en la imagen.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-estilo">Problema</span></p>
 <p>Considera el siguiente fragmento de código HTML:</p>
 <div class="highlight-..-html notranslate"><div class="highlight"><pre><span></span>&lt;body&gt;
   &lt;header&gt;
@@ -3096,6 +3192,24 @@ customElements.define(&#39;progress-bar&#39;, ProgressBar);
 </pre></div>
 </div>
 <p>Observa que la variable <code class="docutils literal notranslate"><span class="pre">lista</span></code> es un <em>array</em> de números que serán impresos dentro del bucle, por lo que una posible respuesta (incorrecta) sería <code class="docutils literal notranslate"><span class="pre">&#64;1=[2,3,1,0,2,3]</span></code>.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>En el siguiente programa en JavaScript la función <code class="docutils literal notranslate"><span class="pre">emit</span></code> imprime por consola el valor pasado como parámetro tras realizar una serie de cálculos durante 1 segundo. El tiempo de ejecución de cualquier otro elemento del código es no nulo pero virtualmente infinitesimal. La función <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> es estándar de JavaScript y registra una función que se ejecutará asíncronamente después del número de milisegundos indicados como segundo parámetro. Indica con qué sustituir la marca <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> para que se impriman por consola en este orden los valores 1, 5, 3, 3, 0.</p>
+<div class="highlight-..-javascript notranslate"><div class="highlight"><pre><span></span>let lista=@1;
+
+for(let i=0;i&lt;lista.length;i++) {
+  if (lista[i]==0) {
+    setTimeout(function() {emit(lista[i]);}, 2000);
+    setTimeout(function() {emit(lista[i+1])}, 1000);
+  }
+  else {
+    emit(lista[i]);
+  }
+}
+</pre></div>
+</div>
+<p>Observa que la variable <code class="docutils literal notranslate"><span class="pre">lista</span></code> es un <em>array</em> de números que serán impresos dentro del bucle, por lo que una posible respuesta (incorrecta) sería <code class="docutils literal notranslate"><span class="pre">&#64;1=[2,1,7,3,0,1]</span></code>.</p>
 </div>
 <div class="problema admonition">
 <p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>

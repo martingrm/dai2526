@@ -1838,6 +1838,118 @@ Lenguajes de estilo
 
 .. ---------
 
+
+.. admonition:: :problema-contador-estilo:`Problema`
+  :class: problema
+
+  Considera el siguiente fragmento de CSS que contiene estilos para mostrar crucigramas en documentos HTML:
+
+  .. code-block:: ..-css
+
+    .crossword {
+      display: grid;
+      width: 200px;
+      grid-template-columns: repeat(4, 1@1);
+      @2: repeat(4, 50px);
+      gap: @3;
+    }
+
+    .cell {
+      border: 1px solid black;
+      padding-left: 1ex;
+    }
+
+    .cell.black {
+      background-color: black;
+    }
+
+    .cell.number::before {
+      @4: attr(data-number);
+      font-size: 12px;
+    }
+
+  Y el siguiente fragmento de HTML que usa los estilos anteriores:
+
+  .. code-block:: ..-html
+
+    <div class="crossword">
+      <div class="cell number" data-number="1"></div>
+      <div class="cell number" data-number="2"></div>
+      <div class="cell black"></div>
+      <div class="cell number" data-number="3"></div>
+      <div class="cell number" data-number="4"></div>
+      <div class="cell"></div>
+      <div class="cell number" data-number="6"></div>
+      <div class="cell black"></div>
+      <div class="cell black"></div>
+      <div class="cell number" data-number="7"></div>
+      <div class="cell"></div>
+      <div class="cell number" data-number="8"></div>
+      <div class="cell number" data-number="9"></div>
+      <div class="cell black"></div>
+      <div class="cell black"></div>
+      <div class="cell"></div>
+    </div>
+
+  El fragmento anterior se visualiza en un navegador como sigue:
+
+  .. raw:: html
+
+    <div id="crucigrama">
+      <script>
+        var root = document.querySelector('#crucigrama').attachShadow({mode:'open'});
+        root.innerHTML = `
+          <style>
+            .crossword {
+              display: grid;
+              width: 200px;
+              grid-template-columns: repeat(4, 1fr);
+              grid-template-rows: repeat(4, 50px);
+              gap: 0;
+            }
+
+            .cell {
+              border: 1px solid black;
+              padding-left: 1ex;
+            }
+
+            .cell.black {
+              background-color: black;
+            }
+
+            .cell.number::before {
+              content: attr(data-number);
+              font-size: 12px;
+            }
+          </style>
+          <div class="crossword">
+            <div class="cell number" data-number="1"></div>
+            <div class="cell number" data-number="2"></div>
+            <div class="cell black"></div>
+            <div class="cell number" data-number="3"></div>
+            <div class="cell number" data-number="4"></div>
+            <div class="cell"></div>
+            <div class="cell number" data-number="6"></div>
+            <div class="cell black"></div>
+            <div class="cell black"></div>
+            <div class="cell number" data-number="7"></div>
+            <div class="cell"></div>
+            <div class="cell number" data-number="8"></div>
+            <div class="cell number" data-number="9"></div>
+            <div class="cell black"></div>
+            <div class="cell black"></div>
+            <div class="cell"></div>
+          </div>`;
+      </script>
+    </div>
+
+  Indica con qué sustituir las marcas ``@1``, ``@2``, ``@3`` y ``@4`` para que el crucigrama se visualice como en la imagen.
+
+  .. solución: @1=fr, @2=grid-template-rows, @3=0, @4=content
+  .. examen enero 2024
+
+.. ------
+
 .. admonition:: :problema-contador-estilo:`Problema`
   :class: problema
 
@@ -3987,6 +4099,35 @@ Programar el lado del cliente
   .. solución: [1,2,0,3]
   .. function emit(s) { function pause(milliseconds) { let dt = new Date(); while ((new Date())-dt<=milliseconds) { /* Do nothing */} } pause(1000); let dt= new Date(); let seconds= dt.getSeconds(); console.log(seconds+"': "+s); }
   .. enero 2023
+
+.. ------
+
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
+  En el siguiente programa en JavaScript la función ``emit`` imprime por consola el valor pasado como parámetro tras realizar una serie de cálculos durante 1 segundo. El tiempo de ejecución de cualquier otro elemento del código es no nulo pero virtualmente infinitesimal. La función ``setTimeout`` es estándar de JavaScript y registra una función que se ejecutará asíncronamente después del número de milisegundos indicados como segundo parámetro. Indica con qué sustituir la marca ``@1`` para que se impriman por consola en este orden los valores 1, 5, 3, 3, 0.
+
+  .. code-block:: ..-javascript
+    :force:
+
+    let lista=@1;
+
+    for(let i=0;i<lista.length;i++) {
+      if (lista[i]==0) {
+        setTimeout(function() {emit(lista[i]);}, 2000);
+        setTimeout(function() {emit(lista[i+1])}, 1000);  
+      }
+      else {
+        emit(lista[i]);
+      }
+    }
+
+  Observa que la variable ``lista`` es un *array* de números que serán impresos dentro del bucle, por lo que una posible respuesta (incorrecta) sería ``@1=[2,1,7,3,0,1]``.
+
+  .. solución: [1,5,0,3]
+  .. function emit(s) { function pause(milliseconds) { let dt = new Date(); while ((new Date())-dt<=milliseconds) { /* Do nothing */} } pause(1000); let dt= new Date(); let seconds= dt.getSeconds(); console.log(seconds+"': "+s); }
+  .. enero 2024
 
 .. ------
 
